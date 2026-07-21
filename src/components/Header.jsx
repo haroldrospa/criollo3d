@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ShoppingBag, Search, Menu, X, Sparkles, Globe } from 'lucide-react';
+import { ShoppingBag, Search, Menu, X, Sparkles } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 
 export default function Header({ 
@@ -47,13 +47,13 @@ export default function Header({
     <header className={`header ${isScrolled ? 'scrolled glass' : ''}`}>
       <div className="container header-container">
         
-        {/* Brand Logo - Transparent circular emblem + "Criollo 3D" text */}
+        {/* Clean Brand Logo */}
         <div className="brand" onClick={() => handleNavClick('home')}>
           <div className="logo-icon-wrapper">
             <img src="/logo_icon_transparent.png" alt="Criollo 3D Emblem" className="logo-icon-img" />
           </div>
           <span className="brand-title">
-            CRIOLLO <span className="blue-3d">3D</span>
+            CRIOLLO<span className="blue-3d">3D</span>
           </span>
         </div>
 
@@ -71,21 +71,20 @@ export default function Header({
           ))}
         </nav>
 
-        {/* Right Actions & Language Toggle */}
+        {/* Right Actions - Minimal & Clean */}
         <div className="header-actions">
           
-          {/* Language Switcher Toggle */}
-          <div className="lang-switcher">
-            <Globe size={16} className="globe-icon" />
+          {/* Desktop Language Switcher */}
+          <div className="lang-switcher-desktop">
             <button 
-              className={`lang-btn ${language === 'es' ? 'active' : ''}`}
+              className={`lang-text-btn ${language === 'es' ? 'active' : ''}`}
               onClick={() => setLanguage('es')}
             >
               ES
             </button>
-            <span className="lang-divider">|</span>
+            <span className="lang-slash">/</span>
             <button 
-              className={`lang-btn ${language === 'en' ? 'active' : ''}`}
+              className={`lang-text-btn ${language === 'en' ? 'active' : ''}`}
               onClick={() => setLanguage('en')}
             >
               EN
@@ -98,7 +97,7 @@ export default function Header({
             title={t('nav.searchPlaceholder')}
             aria-label="Search"
           >
-            <Search size={20} />
+            <Search size={19} />
           </button>
 
           <button 
@@ -107,7 +106,7 @@ export default function Header({
             title={t('nav.cartTitle')}
             aria-label="Shopping Cart"
           >
-            <ShoppingBag size={20} />
+            <ShoppingBag size={19} />
             {cartCount > 0 && (
               <span className="cart-badge animate-scale">{cartCount}</span>
             )}
@@ -118,42 +117,47 @@ export default function Header({
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             aria-label="Toggle Navigation Menu"
           >
-            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            {isMobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
           </button>
         </div>
       </div>
 
-      {/* Mobile Drawer Navigation */}
+      {/* Mobile Drawer Navigation - Simple & Professional */}
       {isMobileMenuOpen && (
-        <div className="mobile-menu glass">
-          {navLinks.map((link) => (
-            <button
-              key={link.id}
-              onClick={() => handleNavClick(link.id)}
-              className={`mobile-nav-link ${activeTab === link.id ? 'active' : ''}`}
-            >
-              {link.label}
-            </button>
-          ))}
+        <div className="mobile-menu glass animate-fade-in">
           
-          {/* Mobile Language Switcher */}
-          <div className="mobile-lang-row">
-            <span>Idioma / Language:</span>
-            <div className="lang-switcher">
+          {/* Language Selector inside Mobile Menu */}
+          <div className="mobile-lang-bar">
+            <span className="mobile-lang-lbl">Idioma / Language</span>
+            <div className="mobile-lang-toggle">
               <button 
-                className={`lang-btn ${language === 'es' ? 'active' : ''}`}
+                className={`mobile-lang-chip ${language === 'es' ? 'active' : ''}`}
                 onClick={() => setLanguage('es')}
               >
-                Español (ES)
+                🇪🇸 Español
               </button>
               <button 
-                className={`lang-btn ${language === 'en' ? 'active' : ''}`}
+                className={`mobile-lang-chip ${language === 'en' ? 'active' : ''}`}
                 onClick={() => setLanguage('en')}
               >
-                English (EN)
+                🇬🇧 English
               </button>
             </div>
           </div>
+
+          <div className="mobile-nav-list">
+            {navLinks.map((link) => (
+              <button
+                key={link.id}
+                onClick={() => handleNavClick(link.id)}
+                className={`mobile-nav-link ${activeTab === link.id ? 'active' : ''} ${link.isHighlight ? 'mobile-quote-btn' : ''}`}
+              >
+                {link.isHighlight && <Sparkles size={16} />}
+                {link.label}
+              </button>
+            ))}
+          </div>
+
         </div>
       )}
 
@@ -165,14 +169,14 @@ export default function Header({
           width: 100%;
           z-index: 100;
           background: #ffffff;
-          border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-          transition: all 0.3s ease;
-          padding: 1.1rem 0;
+          border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+          transition: all 0.25s ease;
+          padding: 0.9rem 0;
         }
 
         .header.scrolled {
-          padding: 0.75rem 0;
-          box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+          padding: 0.65rem 0;
+          box-shadow: 0 4px 18px rgba(0, 0, 0, 0.05);
         }
 
         .header-container {
@@ -184,36 +188,30 @@ export default function Header({
         .brand {
           display: flex;
           align-items: center;
-          gap: 0.75rem;
+          gap: 0.5rem;
           cursor: pointer;
           user-select: none;
         }
 
         .logo-icon-wrapper {
-          width: 44px;
-          height: 44px;
+          width: 36px;
+          height: 36px;
           display: flex;
           align-items: center;
           justify-content: center;
-          transition: transform 0.3s ease;
-        }
-
-        .brand:hover .logo-icon-wrapper {
-          transform: scale(1.08) rotate(4deg);
         }
 
         .logo-icon-img {
           width: 100%;
           height: 100%;
           object-fit: contain;
-          border-radius: 50%;
         }
 
         .brand-title {
           font-family: var(--font-heading);
           font-weight: 800;
-          font-size: 1.45rem;
-          letter-spacing: -0.02em;
+          font-size: 1.25rem;
+          letter-spacing: -0.03em;
           color: #111827;
         }
 
@@ -230,7 +228,7 @@ export default function Header({
         .nav-link {
           font-family: var(--font-body);
           font-weight: 600;
-          font-size: 0.95rem;
+          font-size: 0.92rem;
           color: #4B5563;
           position: relative;
           padding: 0.4rem 0;
@@ -250,7 +248,7 @@ export default function Header({
           width: 100%;
           height: 2px;
           background-color: var(--primary-blue);
-          transition: transform 0.25s ease;
+          transition: transform 0.2s ease;
         }
 
         .nav-link.active::after, .nav-link:hover::after {
@@ -263,8 +261,8 @@ export default function Header({
           display: flex;
           align-items: center;
           gap: 0.35rem;
-          background: rgba(0, 85, 255, 0.08);
-          padding: 0.4rem 0.9rem !important;
+          background: rgba(0, 85, 255, 0.07);
+          padding: 0.35rem 0.85rem !important;
           border-radius: 20px;
         }
 
@@ -272,53 +270,39 @@ export default function Header({
           display: none;
         }
 
-        .sparkle-icon {
-          color: var(--primary-blue);
-        }
-
         .header-actions {
           display: flex;
           align-items: center;
-          gap: 1.1rem;
+          gap: 0.75rem;
         }
 
-        .lang-switcher {
+        /* Desktop Language Switcher */
+        .lang-switcher-desktop {
           display: flex;
           align-items: center;
           gap: 0.3rem;
-          background: var(--bg-light-gray);
-          padding: 0.3rem 0.6rem;
-          border-radius: 99px;
-          border: 1px solid #E5E7EB;
+          margin-right: 0.4rem;
         }
 
-        .globe-icon {
-          color: #6B7280;
-        }
-
-        .lang-btn {
-          font-size: 0.75rem;
+        .lang-text-btn {
+          font-size: 0.8rem;
           font-weight: 700;
-          color: #6B7280;
-          padding: 0.15rem 0.4rem;
-          border-radius: 4px;
-          transition: all 0.2s ease;
+          color: #9CA3AF;
+          transition: color 0.2s ease;
         }
 
-        .lang-btn.active {
+        .lang-text-btn:hover, .lang-text-btn.active {
           color: var(--primary-blue);
-          background: #ffffff;
-          box-shadow: 0 1px 4px rgba(0,0,0,0.1);
         }
 
-        .lang-divider {
+        .lang-slash {
           color: #D1D5DB;
-          font-size: 0.75rem;
+          font-size: 0.8rem;
         }
 
         .action-btn {
-          width: 40px;
-          height: 40px;
+          width: 36px;
+          height: 36px;
           border-radius: 50%;
           display: flex;
           align-items: center;
@@ -342,28 +326,78 @@ export default function Header({
           right: -2px;
           background-color: var(--primary-blue);
           color: #ffffff;
-          font-size: 0.7rem;
-          font-weight: 700;
-          min-width: 18px;
-          height: 18px;
+          font-size: 0.68rem;
+          font-weight: 800;
+          min-width: 17px;
+          height: 17px;
           border-radius: 99px;
           display: flex;
           align-items: center;
           justify-content: center;
-          padding: 0 4px;
+          padding: 0 3px;
           border: 2px solid #ffffff;
         }
 
         .mobile-toggle {
           display: none;
           color: #111827;
+          width: 36px;
+          height: 36px;
+          align-items: center;
+          justify-content: center;
         }
 
+        /* Mobile Drawer Menu */
         .mobile-menu {
+          position: absolute;
+          top: 100%;
+          left: 0;
+          width: 100%;
+          background: #ffffff;
+          padding: 1.25rem 1.5rem 1.5rem 1.5rem;
+          border-bottom: 1px solid var(--border-light);
+          box-shadow: 0 12px 30px rgba(0,0,0,0.08);
           display: flex;
           flex-direction: column;
-          padding: 1rem 1.5rem;
-          border-bottom: 1px solid var(--border-light);
+          gap: 1.25rem;
+        }
+
+        .mobile-lang-bar {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding-bottom: 1rem;
+          border-bottom: 1px solid #F3F4F6;
+        }
+
+        .mobile-lang-lbl {
+          font-size: 0.82rem;
+          font-weight: 600;
+          color: #6B7280;
+        }
+
+        .mobile-lang-toggle {
+          display: flex;
+          gap: 0.4rem;
+        }
+
+        .mobile-lang-chip {
+          padding: 0.35rem 0.75rem;
+          border-radius: 8px;
+          background: #F3F4F6;
+          font-size: 0.8rem;
+          font-weight: 600;
+          color: #4B5563;
+        }
+
+        .mobile-lang-chip.active {
+          background: var(--primary-blue);
+          color: #ffffff;
+        }
+
+        .mobile-nav-list {
+          display: flex;
+          flex-direction: column;
           gap: 0.75rem;
         }
 
@@ -373,24 +407,25 @@ export default function Header({
           font-weight: 600;
           padding: 0.6rem 0;
           color: #374151;
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
         }
 
         .mobile-nav-link.active {
           color: var(--primary-blue);
         }
 
-        .mobile-lang-row {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          padding-top: 0.75rem;
-          border-top: 1px solid #E5E7EB;
-          font-size: 0.88rem;
-          color: #6B7280;
+        .mobile-quote-btn {
+          color: var(--primary-blue) !important;
+          font-weight: 700;
         }
 
         @media (max-width: 868px) {
           .nav-desktop {
+            display: none;
+          }
+          .lang-switcher-desktop {
             display: none;
           }
           .mobile-toggle {
