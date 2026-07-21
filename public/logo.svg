@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="100%" height="100%">
+  <!-- Circle Border -->
+  <circle cx="100" cy="100" r="90" fill="none" stroke="#0088b3" stroke-width="12" />
+  
+  <!-- Lower Dark Charcoal Element (Stylized '3' / 'C' base) -->
+  <path d="M 92 108 C 76 108, 68 120, 68 136 C 68 152, 82 160, 96 160 C 108 160, 118 152, 118 138 C 118 128, 110 120, 98 120 C 108 120, 118 112, 118 100 C 118 88, 108 78, 92 78 Z" fill="none" />
+  
+  <!-- Main Gray Emblem (Lower Hook) -->
+  <path d="M 85 112 C 72 112, 65 125, 75 146 C 82 160, 102 160, 114 148 C 120 142, 122 132, 115 125 C 108 118, 95 118, 88 126 C 85 130, 85 138, 92 142 C 95 144, 102 144, 105 138" fill="none" stroke="#4a4a52" stroke-width="14" stroke-linecap="round" />
+  
+  <!-- Exact stylized logo path from user image -->
+  <!-- Top Teal ribbon swoosh forming upper C loop -->
+  <g transform="translate(10, 5)">
+    <!-- Charcoal bottom shape -->
+    <path d="M 82 118 C 76 118, 70 124, 70 134 C 70 148, 85 154, 98 150 C 106 148, 112 140, 110 130 C 108 120, 96 118, 88 122 C 84 124, 82 130, 86 136 C 90 142, 98 140, 100 134" fill="none" stroke="#4b4c52" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M 86 144 L 88 155 L 82 150 Z" fill="#4b4c52" />
+    
+    <!-- Teal Ribbon Loop (Infinity Swoosh) -->
+    <path d="M 52 98 C 42 82, 58 64, 78 64 C 98 64, 116 88, 134 98 C 148 106, 162 102, 166 94 C 170 86, 160 76, 142 80" fill="none" stroke="#0088b3" stroke-width="12" stroke-linecap="round"/>
+    <path d="M 126 64 L 118 72 C 104 84, 92 98, 78 98 C 62 98, 52 86, 60 74 C 66 66, 78 64, 92 64 L 126 64" fill="none" stroke="#0088b3" stroke-width="12" stroke-linecap="round" />
+  </g>
+</svg>
