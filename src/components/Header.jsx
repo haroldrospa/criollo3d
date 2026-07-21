@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { ShoppingBag, Search, Menu, X, Sparkles } from 'lucide-react';
+import { ShoppingBag, Search, Menu, X, Sparkles, Globe } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function Header({ 
   cartCount, 
@@ -8,6 +9,7 @@ export default function Header({
   setActiveTab,
   onOpenSearch
 }) {
+  const { language, setLanguage, t } = useLanguage();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -20,11 +22,11 @@ export default function Header({
   }, []);
 
   const navLinks = [
-    { id: 'home', label: 'Home' },
-    { id: 'shop', label: 'Shop' },
-    { id: 'quote', label: 'Cotizaciones 3D', isHighlight: true },
-    { id: 'about', label: 'About' },
-    { id: 'contact', label: 'Contact' },
+    { id: 'home', label: t('nav.home') },
+    { id: 'shop', label: t('nav.shop') },
+    { id: 'quote', label: t('nav.quote'), isHighlight: true },
+    { id: 'about', label: t('nav.about') },
+    { id: 'contact', label: t('nav.contact') },
   ];
 
   const handleNavClick = (id) => {
@@ -69,12 +71,31 @@ export default function Header({
           ))}
         </nav>
 
-        {/* Right Actions */}
+        {/* Right Actions & Language Toggle */}
         <div className="header-actions">
+          
+          {/* Language Switcher Toggle */}
+          <div className="lang-switcher">
+            <Globe size={16} className="globe-icon" />
+            <button 
+              className={`lang-btn ${language === 'es' ? 'active' : ''}`}
+              onClick={() => setLanguage('es')}
+            >
+              ES
+            </button>
+            <span className="lang-divider">|</span>
+            <button 
+              className={`lang-btn ${language === 'en' ? 'active' : ''}`}
+              onClick={() => setLanguage('en')}
+            >
+              EN
+            </button>
+          </div>
+
           <button 
             className="action-btn" 
             onClick={onOpenSearch}
-            title="Buscar productos"
+            title={t('nav.searchPlaceholder')}
             aria-label="Search"
           >
             <Search size={20} />
@@ -83,7 +104,7 @@ export default function Header({
           <button 
             className="action-btn cart-btn" 
             onClick={onOpenCart}
-            title="Ver carrito de compras"
+            title={t('nav.cartTitle')}
             aria-label="Shopping Cart"
           >
             <ShoppingBag size={20} />
@@ -114,6 +135,25 @@ export default function Header({
               {link.label}
             </button>
           ))}
+          
+          {/* Mobile Language Switcher */}
+          <div className="mobile-lang-row">
+            <span>Idioma / Language:</span>
+            <div className="lang-switcher">
+              <button 
+                className={`lang-btn ${language === 'es' ? 'active' : ''}`}
+                onClick={() => setLanguage('es')}
+              >
+                Español (ES)
+              </button>
+              <button 
+                className={`lang-btn ${language === 'en' ? 'active' : ''}`}
+                onClick={() => setLanguage('en')}
+              >
+                English (EN)
+              </button>
+            </div>
+          </div>
         </div>
       )}
 
@@ -184,7 +224,7 @@ export default function Header({
         .nav-desktop {
           display: flex;
           align-items: center;
-          gap: 2.2rem;
+          gap: 2rem;
         }
 
         .nav-link {
@@ -239,7 +279,41 @@ export default function Header({
         .header-actions {
           display: flex;
           align-items: center;
-          gap: 1.25rem;
+          gap: 1.1rem;
+        }
+
+        .lang-switcher {
+          display: flex;
+          align-items: center;
+          gap: 0.3rem;
+          background: var(--bg-light-gray);
+          padding: 0.3rem 0.6rem;
+          border-radius: 99px;
+          border: 1px solid #E5E7EB;
+        }
+
+        .globe-icon {
+          color: #6B7280;
+        }
+
+        .lang-btn {
+          font-size: 0.75rem;
+          font-weight: 700;
+          color: #6B7280;
+          padding: 0.15rem 0.4rem;
+          border-radius: 4px;
+          transition: all 0.2s ease;
+        }
+
+        .lang-btn.active {
+          color: var(--primary-blue);
+          background: #ffffff;
+          box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+        }
+
+        .lang-divider {
+          color: #D1D5DB;
+          font-size: 0.75rem;
         }
 
         .action-btn {
@@ -303,6 +377,16 @@ export default function Header({
 
         .mobile-nav-link.active {
           color: var(--primary-blue);
+        }
+
+        .mobile-lang-row {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding-top: 0.75rem;
+          border-top: 1px solid #E5E7EB;
+          font-size: 0.88rem;
+          color: #6B7280;
         }
 
         @media (max-width: 868px) {

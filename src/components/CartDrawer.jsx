@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import { X, Trash2, ShoppingBag, ArrowRight, ShieldCheck, Check } from 'lucide-react';
+import { X, Trash2, ShoppingBag, ArrowRight, Check } from 'lucide-react';
 import confetti from 'canvas-confetti';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function CartDrawer({ isOpen, onClose, cartItems, onUpdateQuantity, onRemoveItem, onClearCart }) {
+  const { t } = useLanguage();
   if (!isOpen) return null;
 
   const [isCheckingOut, setIsCheckingOut] = useState(false);
@@ -30,7 +32,7 @@ export default function CartDrawer({ isOpen, onClose, cartItems, onUpdateQuantit
         <div className="cart-header">
           <div className="cart-title-box">
             <ShoppingBag size={22} className="text-blue" />
-            <h3>Carrito de Compras ({cartItems.reduce((acc, i) => acc + i.quantity, 0)})</h3>
+            <h3>{t('cart.title')} ({cartItems.reduce((acc, i) => acc + i.quantity, 0)})</h3>
           </div>
           <button className="cart-close" onClick={onClose}>
             <X size={20} />
@@ -41,11 +43,11 @@ export default function CartDrawer({ isOpen, onClose, cartItems, onUpdateQuantit
         <div className="shipping-bar-box">
           {remainingForFreeShipping > 0 ? (
             <p className="shipping-text">
-              Agrega <strong>${remainingForFreeShipping.toFixed(2)} USD</strong> más para <strong>¡Envío Gratis!</strong>
+              {t('cart.freeShippingGoal')}<strong>{remainingForFreeShipping.toFixed(2)} USD</strong>{t('cart.freeShippingGoalEnd')}
             </p>
           ) : (
             <p className="shipping-text text-green">
-              🎉 ¡Felicidades! Tienes <strong>Envío Gratis</strong> activado.
+              {t('cart.freeShippingUnlocked')}
             </p>
           )}
           <div className="progress-bg">
@@ -59,8 +61,8 @@ export default function CartDrawer({ isOpen, onClose, cartItems, onUpdateQuantit
             <div className="success-icon">
               <Check size={40} />
             </div>
-            <h3>¡Pedido Confirmado!</h3>
-            <p>Hemos procesado tu compra satisfactoriamente en Criollo3D. Recibirás la notificación de seguimiento en breve.</p>
+            <h3>{t('cart.successTitle')}</h3>
+            <p>{t('cart.successSub')}</p>
             <button 
               className="btn-primary" 
               onClick={() => {
@@ -69,16 +71,16 @@ export default function CartDrawer({ isOpen, onClose, cartItems, onUpdateQuantit
                 onClose();
               }}
             >
-              Continuar Comprando
+              {t('cart.continueBtn')}
             </button>
           </div>
         ) : cartItems.length === 0 ? (
           <div className="empty-cart text-center">
             <ShoppingBag size={56} className="empty-icon" />
-            <h4>Tu carrito está vacío</h4>
-            <p>Explora nuestro catálogo e impresiones personalizadas para agregar productos.</p>
+            <h4>{t('cart.emptyTitle')}</h4>
+            <p>{t('cart.emptySub')}</p>
             <button className="btn-primary" onClick={onClose}>
-              Ver Catálogo
+              {t('cart.browseBtn')}
             </button>
           </div>
         ) : (
@@ -126,16 +128,16 @@ export default function CartDrawer({ isOpen, onClose, cartItems, onUpdateQuantit
             {/* Footer Summary */}
             <div className="cart-footer">
               <div className="summary-line">
-                <span>Subtotal:</span>
+                <span>{t('cart.subtotal')}</span>
                 <strong>${subtotal.toFixed(2)} USD</strong>
               </div>
               <div className="summary-line">
-                <span>Envío:</span>
-                <span>{remainingForFreeShipping === 0 ? 'GRATIS' : '$4.99 USD'}</span>
+                <span>{t('cart.shipping')}</span>
+                <span>{remainingForFreeShipping === 0 ? t('cart.free') : '$4.99 USD'}</span>
               </div>
               <div className="summary-divider"></div>
               <div className="summary-line total-line">
-                <span>Total Estimado:</span>
+                <span>{t('cart.total')}</span>
                 <span className="cart-total-price">
                   ${(subtotal + (remainingForFreeShipping === 0 ? 0 : 4.99)).toFixed(2)} USD
                 </span>
@@ -146,9 +148,9 @@ export default function CartDrawer({ isOpen, onClose, cartItems, onUpdateQuantit
                 onClick={handleCheckout}
                 disabled={isCheckingOut}
               >
-                {isCheckingOut ? 'Procesando Order...' : (
+                {isCheckingOut ? t('cart.processing') : (
                   <>
-                    FINALIZAR COMPRA <ArrowRight size={18} />
+                    {t('cart.checkoutBtn')} <ArrowRight size={18} />
                   </>
                 )}
               </button>

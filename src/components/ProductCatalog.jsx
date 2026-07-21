@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { PRODUCTS, CATEGORIES } from '../data/products';
-import { ShoppingBag, Eye, Star, Filter, Search, Sparkles } from 'lucide-react';
+import { ShoppingBag, Eye, Star, Search } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function ProductCatalog({ 
   selectedCategory, 
@@ -8,6 +9,7 @@ export default function ProductCatalog({
   onAddToCart, 
   onQuickView 
 }) {
+  const { t } = useLanguage();
   const [searchQuery, setSearchQuery] = useState('');
 
   // Filter products
@@ -25,8 +27,8 @@ export default function ProductCatalog({
         {/* Section Title */}
         <div className="catalog-header">
           <div>
-            <h2 className="catalog-title">Catálogo de Impresiones 3D</h2>
-            <p className="catalog-subtitle">Explora piezas terminadas de alta precisión listas para envío o personalización.</p>
+            <h2 className="catalog-title">{t('catalog.title')}</h2>
+            <p className="catalog-subtitle">{t('catalog.subtitle')}</p>
           </div>
 
           {/* Search Input */}
@@ -34,7 +36,7 @@ export default function ProductCatalog({
             <Search size={18} className="search-icon" />
             <input 
               type="text" 
-              placeholder="Buscar en el catálogo..." 
+              placeholder={t('catalog.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
@@ -52,7 +54,7 @@ export default function ProductCatalog({
               onClick={() => onSelectCategory(cat.id)}
               className={`filter-pill ${selectedCategory === cat.id ? 'active' : ''}`}
             >
-              {cat.name}
+              {t(`catalog.categories.${cat.id}`) || cat.name}
             </button>
           ))}
         </div>
@@ -60,9 +62,9 @@ export default function ProductCatalog({
         {/* Products Grid */}
         {filteredProducts.length === 0 ? (
           <div className="no-products text-center">
-            <p>No se encontraron productos que coincidan con tu búsqueda.</p>
+            <p>{t('catalog.noResults')}</p>
             <button className="btn-secondary" onClick={() => { setSearchQuery(''); onSelectCategory('all'); }}>
-              Restablecer filtros
+              {t('catalog.resetFilters')}
             </button>
           </div>
         ) : (
@@ -87,9 +89,9 @@ export default function ProductCatalog({
                     <button 
                       className="quick-view-btn" 
                       onClick={() => onQuickView(product)}
-                      title="Vista Rápida"
+                      title={t('catalog.quickView')}
                     >
-                      <Eye size={18} /> Vista Rápida
+                      <Eye size={18} /> {t('catalog.quickView')}
                     </button>
                   </div>
                 </div>
@@ -102,7 +104,7 @@ export default function ProductCatalog({
                       <Star size={14} fill="#F59E0B" color="#F59E0B" />
                       <span>{product.rating}</span>
                     </div>
-                    <span className="reviews-count">({product.reviewsCount} opiniones)</span>
+                    <span className="reviews-count">({product.reviewsCount} {t('catalog.reviews')})</span>
                   </div>
 
                   <h3 className="product-title" onClick={() => onQuickView(product)}>
@@ -122,7 +124,7 @@ export default function ProductCatalog({
                       className="btn-primary add-cart-btn"
                       onClick={() => onAddToCart(product)}
                     >
-                      <ShoppingBag size={16} /> Agregar
+                      <ShoppingBag size={16} /> {t('catalog.add')}
                     </button>
                   </div>
 

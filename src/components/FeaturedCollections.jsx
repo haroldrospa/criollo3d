@@ -1,33 +1,39 @@
 import React from 'react';
 import { FEATURED_COLLECTIONS } from '../data/products';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function FeaturedCollections({ onSelectCategory }) {
+  const { t } = useLanguage();
+
   return (
     <section className="featured-section" id="shop">
       <div className="container">
         
-        <h2 className="section-title">Featured Collections</h2>
+        <h2 className="section-title">{t('collections.title')}</h2>
 
         <div className="collections-grid">
-          {FEATURED_COLLECTIONS.map((col) => (
-            <div key={col.id} className="collection-card">
-              
-              <div className="collection-img-box">
-                <img src={col.image} alt={col.title} className="collection-img" />
-              </div>
+          {FEATURED_COLLECTIONS.map((col) => {
+            const itemTrans = t(`collections.items.${col.id}`);
+            return (
+              <div key={col.id} className="collection-card">
+                
+                <div className="collection-img-box">
+                  <img src={col.image} alt={itemTrans.title || col.title} className="collection-img" />
+                </div>
 
-              <div className="collection-info">
-                <h3 className="collection-name">{col.title}</h3>
-                <button 
-                  className="btn-primary collection-btn"
-                  onClick={() => onSelectCategory(col.id)}
-                >
-                  {col.buttonText}
-                </button>
-              </div>
+                <div className="collection-info">
+                  <h3 className="collection-name">{itemTrans.title || col.title}</h3>
+                  <button 
+                    className="btn-primary collection-btn"
+                    onClick={() => onSelectCategory(col.id)}
+                  >
+                    {t('collections.shopNow')}
+                  </button>
+                </div>
 
-            </div>
-          ))}
+              </div>
+            );
+          })}
         </div>
 
       </div>
@@ -102,7 +108,7 @@ export default function FeaturedCollections({ onSelectCategory }) {
         .collection-name {
           font-family: var(--font-heading);
           font-weight: 700;
-          font-size: 1.6rem;
+          font-size: 1.5rem;
           color: #111827;
         }
 

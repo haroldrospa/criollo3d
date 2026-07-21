@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import { X, ShoppingBag, Star, CheckCircle, ShieldCheck, Truck } from 'lucide-react';
+import { X, ShoppingBag, Star, ShieldCheck, Truck } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function ProductModal({ product, onClose, onAddToCart }) {
+  const { t } = useLanguage();
   if (!product) return null;
 
   const [selectedMaterial, setSelectedMaterial] = useState(product.materials?.[0] || 'PLA Ultra');
@@ -30,13 +32,13 @@ export default function ProductModal({ product, onClose, onAddToCart }) {
 
           {/* Right: Info & Controls */}
           <div className="modal-info">
-            <span className="modal-badge">{product.badge || 'Criollo3D'}</span>
+            <span className="modal-badge">{product.badge || 'Criollo 3D'}</span>
             <h2 className="modal-title">{product.name}</h2>
 
             <div className="modal-rating">
               <Star size={16} fill="#F59E0B" color="#F59E0B" />
               <strong>{product.rating}</strong>
-              <span>({product.reviewsCount} opiniones verificadas)</span>
+              <span>({product.reviewsCount} {t('modal.reviews')})</span>
             </div>
 
             <div className="modal-price">
@@ -48,7 +50,7 @@ export default function ProductModal({ product, onClose, onAddToCart }) {
             {/* Material Selector */}
             {product.materials && (
               <div className="modal-option-group">
-                <label className="option-label">Material de Impresión:</label>
+                <label className="option-label">{t('modal.material')}</label>
                 <div className="materials-pills">
                   {product.materials.map(mat => (
                     <button
@@ -72,14 +74,14 @@ export default function ProductModal({ product, onClose, onAddToCart }) {
               </div>
 
               <button className="btn-primary modal-add-btn" onClick={handleAdd}>
-                <ShoppingBag size={18} /> AGREGAR AL CARRITO - ${(product.price * quantity).toFixed(2)}
+                <ShoppingBag size={18} /> {t('modal.addBtn')} - ${(product.price * quantity).toFixed(2)}
               </button>
             </div>
 
             {/* Shipping & Guarantees */}
             <div className="modal-guarantees">
-              <div><Truck size={16} /> Envío rápido a todo el país</div>
-              <div><ShieldCheck size={16} /> Control de calidad 3D inspeccionado</div>
+              <div><Truck size={16} /> {t('modal.shipping')}</div>
+              <div><ShieldCheck size={16} /> {t('modal.guarantee')}</div>
             </div>
 
           </div>

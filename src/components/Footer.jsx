@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { CheckCircle2 } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function Footer({ onNavClick }) {
+  const { t } = useLanguage();
   const [email, setEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
 
@@ -21,25 +23,25 @@ export default function Footer({ onNavClick }) {
         
         {/* Newsletter Section matching image */}
         <div className="newsletter-row">
-          <h3 className="newsletter-title">Sign Up For Our Newsletter</h3>
+          <h3 className="newsletter-title">{t('footer.newsletterTitle')}</h3>
 
           <form onSubmit={handleSubscribe} className="newsletter-form">
             {subscribed ? (
               <div className="subscribed-msg">
-                <CheckCircle2 size={18} /> ¡Gracias por suscribirte a Criollo 3D!
+                <CheckCircle2 size={18} /> {t('footer.subscribedMsg')}
               </div>
             ) : (
               <div className="input-pill-wrapper">
                 <input 
                   type="email" 
-                  placeholder="Email address"
+                  placeholder={t('footer.emailPlaceholder')}
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
                   className="newsletter-input"
                 />
                 <button type="submit" className="btn-primary subscribe-btn">
-                  SUBSCRIBE
+                  {t('footer.subscribeBtn')}
                 </button>
               </div>
             )}
@@ -61,13 +63,13 @@ export default function Footer({ onNavClick }) {
           </div>
 
           <div className="footer-nav-links">
-            <button onClick={() => onNavClick('home')}>Home</button>
-            <button onClick={() => onNavClick('shop')}>Shop</button>
-            <button onClick={() => onNavClick('quote')}>Cotizaciones</button>
-            <button onClick={() => onNavClick('about')}>About</button>
-            <button onClick={() => onNavClick('contact')}>Contact</button>
-            <a href="#privacy">Privacy Policy</a>
-            <a href="#terms">Terms of Service</a>
+            <button onClick={() => onNavClick('home')}>{t('nav.home')}</button>
+            <button onClick={() => onNavClick('shop')}>{t('nav.shop')}</button>
+            <button onClick={() => onNavClick('quote')}>{t('nav.quote')}</button>
+            <button onClick={() => onNavClick('about')}>{t('nav.about')}</button>
+            <button onClick={() => onNavClick('contact')}>{t('nav.contact')}</button>
+            <a href="#privacy">{t('footer.privacy')}</a>
+            <a href="#terms">{t('footer.terms')}</a>
           </div>
 
         </div>

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { LanguageProvider } from './context/LanguageContext';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import FeaturedCollections from './components/FeaturedCollections';
@@ -10,7 +11,7 @@ import ProductModal from './components/ProductModal';
 import Footer from './components/Footer';
 import NotificationToast from './components/NotificationToast';
 
-export default function App() {
+function AppContent() {
   const [activeTab, setActiveTab] = useState('home');
   const [selectedCategory, setSelectedCategory] = useState('all');
   
@@ -127,7 +128,7 @@ export default function App() {
       />
 
       <main>
-        {/* 1. Hero Section matching target reference */}
+        {/* 1. Hero Section */}
         <Hero 
           onExploreClick={handleExploreClick}
           onQuoteClick={handleQuoteClick}
@@ -138,7 +139,7 @@ export default function App() {
           onSelectCategory={handleCategorySelect}
         />
 
-        {/* 3. Product Catalog with Category Filters & Search */}
+        {/* 3. Product Catalog */}
         <ProductCatalog 
           selectedCategory={selectedCategory}
           onSelectCategory={setSelectedCategory}
@@ -146,16 +147,16 @@ export default function App() {
           onQuickView={(prod) => setQuickViewProduct(prod)}
         />
 
-        {/* 4. Custom 3D Quote Generator Section (Requested by user) */}
+        {/* 4. Custom 3D Quote Generator Section */}
         <CustomQuoteSection 
           onQuoteSubmitted={(quote) => showToast(`✉️ Cotización #${quote.quoteId} enviada con éxito`)}
         />
 
-        {/* 5. About Us Section matching target reference */}
+        {/* 5. About Us Section */}
         <AboutUs />
       </main>
 
-      {/* Footer dark theme matching reference */}
+      {/* Footer */}
       <Footer onNavClick={(id) => {
         setActiveTab(id);
         const elem = document.getElementById(id);
@@ -186,5 +187,13 @@ export default function App() {
       />
 
     </div>
+  );
+}
+
+export default function App() {
+  return (
+    <LanguageProvider>
+      <AppContent />
+    </LanguageProvider>
   );
 }

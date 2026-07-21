@@ -1,7 +1,10 @@
 import React from 'react';
 import { ArrowRight, Sparkles } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function Hero({ onExploreClick, onQuoteClick }) {
+  const { t } = useLanguage();
+
   return (
     <section className="hero-section">
       <div className="container hero-container">
@@ -9,21 +12,21 @@ export default function Hero({ onExploreClick, onQuoteClick }) {
         {/* Left Column: Text & Call to Action */}
         <div className="hero-content">
           <h1 className="hero-title">
-            EXPLORE THE<br />
-            WORLD OF<br />
-            3D PRINTING
+            {t('hero.title1')}<br />
+            {t('hero.title2')}<br />
+            {t('hero.title3')}
           </h1>
 
           <p className="hero-subtitle">
-            Discover innovative 3D printing solutions and push the boundaries of what's possible.
+            {t('hero.subtitle')}
           </p>
 
           <div className="hero-actions">
             <button className="btn-primary hero-btn" onClick={onExploreClick}>
-              SHOP NOW
+              {t('hero.shopNow')}
             </button>
             <button className="btn-outline hero-quote-btn" onClick={onQuoteClick}>
-              <Sparkles size={16} /> Cotizar Pieza 3D
+              <Sparkles size={16} /> {t('hero.quoteBtn')}
             </button>
           </div>
         </div>

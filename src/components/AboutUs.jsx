@@ -1,35 +1,36 @@
 import React from 'react';
-import { ShieldCheck, Cpu, Flame, Award } from 'lucide-react';
+import { ShieldCheck, Cpu } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function AboutUs() {
+  const { t } = useLanguage();
+
   return (
     <section className="about-section" id="about">
       <div className="container about-container">
         
         {/* Left Column: Corporate Info */}
         <div className="about-content">
-          <h2 className="about-title">About Us</h2>
+          <h2 className="about-title">{t('about.title')}</h2>
           
           <p className="about-text">
-            Our company is dedicated to providing state-of-the-art 3D printing services and products. 
-            With a commitment to quality and innovation, we strive to push the boundaries of what's 
-            possible with 3D printing.
+            {t('about.text')}
           </p>
 
           <div className="about-features">
             <div className="feature-item">
               <div className="feature-icon"><Cpu size={22} /></div>
               <div>
-                <h4>Tecnología FDM & SLA</h4>
-                <p>Equipos industriales de resolución micrónica para máxima precisión.</p>
+                <h4>{t('about.f1Title')}</h4>
+                <p>{t('about.f1Desc')}</p>
               </div>
             </div>
 
             <div className="feature-item">
               <div className="feature-icon"><ShieldCheck size={22} /></div>
               <div>
-                <h4>Garantía de Calidad</h4>
-                <p>Inspección pieza por pieza y materiales de grado de ingeniería.</p>
+                <h4>{t('about.f2Title')}</h4>
+                <p>{t('about.f2Desc')}</p>
               </div>
             </div>
           </div>
@@ -41,7 +42,7 @@ export default function AboutUs() {
           <div className="about-image-wrapper">
             <img 
               src="/images/about_david_dark.png" 
-              alt="Criollo3D About Statue" 
+              alt="Criollo 3D About Statue" 
               className="about-image"
             />
           </div>

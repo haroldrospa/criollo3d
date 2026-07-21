@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
-import { Upload, FileText, CheckCircle2, Sparkles, Send, Calculator, Layers, Palette, Shield, Info, HelpCircle } from 'lucide-react';
+import { Upload, FileText, CheckCircle2, Sparkles, Send, Calculator, Layers, Palette, Shield } from 'lucide-react';
 import confetti from 'canvas-confetti';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function CustomQuoteSection({ onQuoteSubmitted }) {
+  const { t } = useLanguage();
+
   // File Upload State
   const [uploadedFile, setUploadedFile] = useState(null);
   const [isDragging, setIsDragging] = useState(false);
@@ -83,7 +86,7 @@ export default function CustomQuoteSection({ onQuoteSubmitted }) {
     });
   };
 
-  // Sample STL preset generator for clients without an STL ready
+  // Sample STL preset generator
   const useSampleModel = (name, sizeMb) => {
     setUploadedFile({
       name: name,
@@ -122,7 +125,6 @@ export default function CustomQuoteSection({ onQuoteSubmitted }) {
 
       setQuoteResult(summary);
 
-      // Trigger Celebration Confetti
       confetti({
         particleCount: 100,
         spread: 70,
@@ -142,12 +144,10 @@ export default function CustomQuoteSection({ onQuoteSubmitted }) {
         {/* Section Header */}
         <div className="quote-header text-center">
           <div className="quote-badge">
-            <Sparkles size={16} /> Cotizador Instantáneo Criollo3D
+            <Sparkles size={16} /> {t('quote.badge')}
           </div>
-          <h2 className="quote-title">Cotiza tu Impresión 3D Personalizada</h2>
-          <p className="quote-subtitle">
-            Sube tu archivo .STL u .OBJ, elige material y relleno, obtén una estimación inmediata y envía tu cotización directo a nuestro correo.
-          </p>
+          <h2 className="quote-title">{t('quote.title')}</h2>
+          <p className="quote-subtitle">{t('quote.subtitle')}</p>
         </div>
 
         {quoteResult ? (
@@ -156,50 +156,49 @@ export default function CustomQuoteSection({ onQuoteSubmitted }) {
             <div className="success-icon-wrapper">
               <CheckCircle2 size={56} className="text-blue" />
             </div>
-            <h3>¡Cotización Enviada con Éxito!</h3>
+            <h3>{t('quote.successTitle')}</h3>
             <p className="success-msg">
-              Hemos enviado el resumen detallado a <strong>{quoteResult.customerEmail}</strong>. 
-              Uno de nuestros ingenieros de impresión 3D revisará la malla de tu modelo y te responderá en menos de 2 horas.
+              {t('quote.successMsg')} (<strong>{quoteResult.customerEmail}</strong>).
             </p>
 
             <div className="quote-summary-card">
               <div className="summary-row header-row">
-                <span>Nº de Cotización:</span>
+                <span>{t('quote.quoteNum')}</span>
                 <strong>{quoteResult.quoteId}</strong>
               </div>
               <div className="summary-row">
-                <span>Archivo Subido:</span>
+                <span>{t('quote.uploadedFile')}</span>
                 <span>{quoteResult.fileName}</span>
               </div>
               <div className="summary-row">
-                <span>Material & Color:</span>
+                <span>{t('quote.matColor')}</span>
                 <span>{quoteResult.material} ({quoteResult.color.split(' ')[0]})</span>
               </div>
               <div className="summary-row">
-                <span>Configuración:</span>
-                <span>Infill: {quoteResult.infill} | Capa: {quoteResult.layerHeight}</span>
+                <span>{t('quote.config')}</span>
+                <span>Infill: {quoteResult.infill} | Layer: {quoteResult.layerHeight}</span>
               </div>
               <div className="summary-row">
-                <span>Cantidad:</span>
-                <span>{quoteResult.quantity} unidad(es)</span>
+                <span>{t('quote.quantity')}</span>
+                <span>{quoteResult.quantity}</span>
               </div>
               <div className="summary-row total-row">
-                <span>Precio Estimado Total:</span>
+                <span>{t('quote.totalEst')}</span>
                 <span className="total-price-tag">{quoteResult.totalPrice} USD</span>
               </div>
             </div>
 
             <div className="success-actions">
               <button className="btn-primary" onClick={() => setQuoteResult(null)}>
-                Nueva Cotización
+                {t('quote.newQuote')}
               </button>
               <a 
-                href={`https://wa.me/?text=Hola%20Criollo3D,%20acabo%20de%20generar%20la%20cotizaci%C3%B3n%20${quoteResult.quoteId}%20para%20${encodeURIComponent(quoteResult.fileName)}.`}
+                href={`https://wa.me/?text=Hola%20Criollo3D,%20cotizaci%C3%B3n%20${quoteResult.quoteId}%20para%20${encodeURIComponent(quoteResult.fileName)}.`}
                 target="_blank" 
                 rel="noreferrer"
                 className="btn-secondary"
               >
-                Consultar por WhatsApp
+                {t('quote.whatsappBtn')}
               </a>
             </div>
           </div>
@@ -214,7 +213,7 @@ export default function CustomQuoteSection({ onQuoteSubmitted }) {
               <div className="quote-step-box">
                 <div className="step-title">
                   <span className="step-num">1</span>
-                  <h3>Sube tu Archivo 3D (.STL, .OBJ, .3MF)</h3>
+                  <h3>{t('quote.step1')}</h3>
                 </div>
 
                 <div 
@@ -228,14 +227,14 @@ export default function CustomQuoteSection({ onQuoteSubmitted }) {
                       <FileText size={38} className="text-blue" />
                       <div>
                         <h4>{uploadedFile.name}</h4>
-                        <p>Tamaño: {uploadedFile.formattedSize} | Tipo: {uploadedFile.type}</p>
+                        <p>Size: {uploadedFile.formattedSize} | Type: {uploadedFile.type}</p>
                       </div>
                       <button 
                         type="button" 
                         className="btn-change-file"
                         onClick={() => setUploadedFile(null)}
                       >
-                        Cambiar
+                        {t('quote.changeFile')}
                       </button>
                     </div>
                   ) : (
@@ -243,8 +242,8 @@ export default function CustomQuoteSection({ onQuoteSubmitted }) {
                       <div className="upload-icon-circle">
                         <Upload size={28} />
                       </div>
-                      <h4>Arrastra y suelta tu modelo 3D aquí</h4>
-                      <p>o haz clic para explorar tus archivos localmente</p>
+                      <h4>{t('quote.dropTitle')}</h4>
+                      <p>{t('quote.dropSub')}</p>
                       <input 
                         type="file" 
                         accept=".stl,.obj,.3mf" 
@@ -255,13 +254,13 @@ export default function CustomQuoteSection({ onQuoteSubmitted }) {
                   )}
                 </div>
 
-                {/* Sample STL buttons if client doesn't have a file on hand */}
+                {/* Sample STL preset generator */}
                 <div className="sample-files-prompt">
-                  <span>¿No tienes un archivo a mano? Pruba con un modelo demo:</span>
+                  <span>{t('quote.samplePrompt')}</span>
                   <div className="sample-btns">
-                    <button type="button" onClick={() => useSampleModel('Pieza_Mecanica_Gear.stl', 4.2)}>⚙️ Engranaje</button>
-                    <button type="button" onClick={() => useSampleModel('Busto_Custom_Art.stl', 12.8)}>🗿 Busto Artístico</button>
-                    <button type="button" onClick={() => useSampleModel('Caja_Carcasa_Tech.stl', 6.1)}>📦 Carcasa Tech</button>
+                    <button type="button" onClick={() => useSampleModel('Pieza_Mecanica_Gear.stl', 4.2)}>{t('quote.sampleGear')}</button>
+                    <button type="button" onClick={() => useSampleModel('Busto_Custom_Art.stl', 12.8)}>{t('quote.sampleBust')}</button>
+                    <button type="button" onClick={() => useSampleModel('Caja_Carcasa_Tech.stl', 6.1)}>{t('quote.sampleCase')}</button>
                   </div>
                 </div>
               </div>
@@ -270,12 +269,12 @@ export default function CustomQuoteSection({ onQuoteSubmitted }) {
               <div className="quote-step-box">
                 <div className="step-title">
                   <span className="step-num">2</span>
-                  <h3>Parámetros de Impresión</h3>
+                  <h3>{t('quote.step2')}</h3>
                 </div>
 
                 {/* Material Selection */}
                 <div className="param-group">
-                  <label className="param-label"><Layers size={16} /> Selecciona Material:</label>
+                  <label className="param-label"><Layers size={16} /> {t('quote.selectMaterial')}</label>
                   <div className="materials-grid">
                     {materials.map(m => (
                       <button
@@ -293,7 +292,7 @@ export default function CustomQuoteSection({ onQuoteSubmitted }) {
 
                 {/* Color Selector */}
                 <div className="param-group">
-                  <label className="param-label"><Palette size={16} /> Color Deseado:</label>
+                  <label className="param-label"><Palette size={16} /> {t('quote.selectColor')}</label>
                   <div className="color-swatches">
                     {colors.map(c => (
                       <button
@@ -313,7 +312,7 @@ export default function CustomQuoteSection({ onQuoteSubmitted }) {
                 {/* Infill Percentage */}
                 <div className="param-group">
                   <div className="param-header">
-                    <label className="param-label">Porcentaje de Relleno (Infill):</label>
+                    <label className="param-label">{t('quote.infillLabel')}</label>
                     <span className="param-val">{infill}%</span>
                   </div>
                   <input 
@@ -326,29 +325,29 @@ export default function CustomQuoteSection({ onQuoteSubmitted }) {
                     className="slider-input"
                   />
                   <div className="slider-labels">
-                    <span>10% (Ligero)</span>
-                    <span>40% (Estándar)</span>
-                    <span>100% (Sólido)</span>
+                    <span>{t('quote.infillLight')}</span>
+                    <span>{t('quote.infillStd')}</span>
+                    <span>{t('quote.infillSolid')}</span>
                   </div>
                 </div>
 
                 {/* Layer Height & Quantity */}
                 <div className="param-two-col">
                   <div className="param-group">
-                    <label className="param-label">Resolución de Capa:</label>
+                    <label className="param-label">{t('quote.layerRes')}</label>
                     <select 
                       value={layerHeight} 
                       onChange={(e) => setLayerHeight(e.target.value)}
                       className="select-input"
                     >
-                      <option value="0.1">0.10 mm (Ultra Fino SLA/FDM)</option>
-                      <option value="0.2">0.20 mm (Estándar Recomendado)</option>
-                      <option value="0.28">0.28 mm (Impresión Rápida)</option>
+                      <option value="0.1">{t('quote.layerFDM')}</option>
+                      <option value="0.2">{t('quote.layerStd')}</option>
+                      <option value="0.28">{t('quote.layerFast')}</option>
                     </select>
                   </div>
 
                   <div className="param-group">
-                    <label className="param-label">Cantidad de Piezas:</label>
+                    <label className="param-label">{t('quote.quantity')}</label>
                     <div className="qty-control">
                       <button type="button" onClick={() => setQuantity(Math.max(1, quantity - 1))}>-</button>
                       <span>{quantity}</span>
@@ -367,44 +366,44 @@ export default function CustomQuoteSection({ onQuoteSubmitted }) {
               <div className="quote-summary-sticky">
                 
                 <div className="calc-header">
-                  <Calculator size={20} /> Estimación en Tiempo Real
+                  <Calculator size={20} /> {t('quote.step3')}
                 </div>
 
                 <div className="calc-metrics-grid">
                   <div className="metric-box">
-                    <span className="metric-lbl">Peso estimado</span>
+                    <span className="metric-lbl">{t('quote.estWeight')}</span>
                     <strong className="metric-val">{estimatedWeightGrams * quantity} g</strong>
                   </div>
                   <div className="metric-box">
-                    <span className="metric-lbl">Tiempo impre.</span>
+                    <span className="metric-lbl">{t('quote.estTime')}</span>
                     <strong className="metric-val">~{estimatedHours * quantity} h</strong>
                   </div>
                 </div>
 
                 <div className="price-breakdown">
                   <div className="price-row">
-                    <span>Precio Unitario:</span>
+                    <span>{t('quote.unitPrice')}</span>
                     <strong>${unitPrice.toFixed(2)} USD</strong>
                   </div>
                   <div className="price-row">
-                    <span>Cantidad:</span>
+                    <span>{t('quote.quantity')}</span>
                     <span>x{quantity}</span>
                   </div>
                   <div className="price-divider"></div>
                   <div className="price-row total">
-                    <span>Total Estimado:</span>
+                    <span>{t('quote.totalEst')}</span>
                     <span className="big-price">${totalPrice.toFixed(2)} USD</span>
                   </div>
                 </div>
 
                 {/* STEP 3: Contact Form & Send */}
                 <form onSubmit={handleSubmitQuote} className="contact-quote-form">
-                  <h4>Completa tus datos para enviar cotización</h4>
+                  <h4>{t('quote.formTitle')}</h4>
                   
                   <div className="input-field">
                     <input 
                       type="text" 
-                      placeholder="Tu Nombre completo *" 
+                      placeholder={t('quote.namePlaceholder')}
                       required
                       value={formData.name}
                       onChange={(e) => setFormData({...formData, name: e.target.value})}
@@ -414,7 +413,7 @@ export default function CustomQuoteSection({ onQuoteSubmitted }) {
                   <div className="input-field">
                     <input 
                       type="email" 
-                      placeholder="Tu Correo Electrónico *" 
+                      placeholder={t('quote.emailPlaceholder')}
                       required
                       value={formData.email}
                       onChange={(e) => setFormData({...formData, email: e.target.value})}
@@ -424,7 +423,7 @@ export default function CustomQuoteSection({ onQuoteSubmitted }) {
                   <div className="input-field">
                     <input 
                       type="tel" 
-                      placeholder="Teléfono / WhatsApp (Opcional)" 
+                      placeholder={t('quote.phonePlaceholder')}
                       value={formData.phone}
                       onChange={(e) => setFormData({...formData, phone: e.target.value})}
                     />
@@ -432,7 +431,7 @@ export default function CustomQuoteSection({ onQuoteSubmitted }) {
 
                   <div className="input-field">
                     <textarea 
-                      placeholder="Notas del proyecto (post-procesado, ensamblado, tolerancias)..."
+                      placeholder={t('quote.notesPlaceholder')}
                       rows="3"
                       value={formData.notes}
                       onChange={(e) => setFormData({...formData, notes: e.target.value})}
@@ -445,16 +444,16 @@ export default function CustomQuoteSection({ onQuoteSubmitted }) {
                     disabled={isSubmitting}
                   >
                     {isSubmitting ? (
-                      'Procesando Cotización...'
+                      t('quote.submitting')
                     ) : (
                       <>
-                        <Send size={18} /> ENVIAR COTIZACIÓN AL CORREO
+                        <Send size={18} /> {t('quote.submitBtn')}
                       </>
                     )}
                   </button>
 
                   <p className="privacy-note">
-                    <Shield size={14} /> Tus datos y archivos 3D están 100% protegidos bajo acuerdo de confidencialidad.
+                    <Shield size={14} /> {t('quote.privacy')}
                   </p>
                 </form>
 
