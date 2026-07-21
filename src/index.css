@@ -1,4 +1,4 @@
-/* Design System & Global Styles for Criollo3D */
+/* Design System & Global Responsive Styles for Criollo 3D */
 :root {
   --primary-blue: #0055FF;
   --primary-blue-hover: #0040D0;
@@ -36,7 +36,7 @@
   --transition-smooth: 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-* {
+*, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -48,10 +48,21 @@ html {
   color: var(--text-dark);
   background-color: var(--bg-white);
   -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+  font-size: 16px;
 }
 
 body {
   overflow-x: hidden;
+  width: 100%;
+  min-height: 100vh;
+  touch-action: manipulation;
+}
+
+img, video, svg {
+  max-width: 100%;
+  height: auto;
+  display: block;
 }
 
 button {
@@ -60,11 +71,13 @@ button {
   border: none;
   background: none;
   outline: none;
+  touch-action: manipulation;
 }
 
 input, select, textarea {
   font-family: inherit;
   outline: none;
+  font-size: 16px; /* Prevents auto-zoom on iOS safari */
 }
 
 a {
@@ -76,17 +89,19 @@ a {
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading);
   letter-spacing: -0.02em;
+  overflow-wrap: break-word;
 }
 
-/* Primary Button Styling - Matching exact pill buttons from reference image */
+/* Primary Button Styling - Responsive Pill Buttons */
 .btn-primary {
   background-color: var(--primary-blue);
   color: var(--text-white);
   font-weight: 700;
-  font-size: 0.85rem;
+  font-size: clamp(0.8rem, 2.5vw, 0.88rem);
   letter-spacing: 0.05em;
   text-transform: uppercase;
-  padding: 0.75rem 1.8rem;
+  padding: 0.8rem 1.8rem;
+  min-height: 44px; /* Optimal touch target */
   border-radius: var(--radius-pill);
   transition: all var(--transition-fast);
   display: inline-flex;
@@ -94,6 +109,7 @@ h1, h2, h3, h4, h5, h6 {
   justify-content: center;
   gap: 0.5rem;
   box-shadow: 0 4px 14px rgba(0, 85, 255, 0.25);
+  text-align: center;
 }
 
 .btn-primary:hover {
@@ -110,10 +126,14 @@ h1, h2, h3, h4, h5, h6 {
   background-color: var(--bg-light-gray);
   color: var(--text-dark);
   font-weight: 600;
-  font-size: 0.9rem;
+  font-size: clamp(0.85rem, 2.5vw, 0.9rem);
   padding: 0.75rem 1.5rem;
+  min-height: 44px;
   border-radius: var(--radius-pill);
   transition: all var(--transition-fast);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .btn-secondary:hover {
@@ -125,12 +145,16 @@ h1, h2, h3, h4, h5, h6 {
   border: 2px solid var(--primary-blue);
   color: var(--primary-blue);
   font-weight: 700;
-  font-size: 0.85rem;
+  font-size: clamp(0.8rem, 2.5vw, 0.85rem);
   letter-spacing: 0.05em;
   text-transform: uppercase;
-  padding: 0.7rem 1.5rem;
+  padding: 0.75rem 1.5rem;
+  min-height: 44px;
   border-radius: var(--radius-pill);
   transition: all var(--transition-fast);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .btn-outline:hover {
@@ -138,24 +162,37 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--text-white);
 }
 
-/* Layout Container */
+/* Fluid Layout Container */
 .container {
   width: 100%;
   max-width: 1240px;
   margin: 0 auto;
-  padding: 0 1.5rem;
+  padding: 0 1.25rem;
+}
+
+@media (min-width: 640px) {
+  .container {
+    padding: 0 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    padding: 0 2rem;
+  }
 }
 
 /* Glassmorphism utility */
 .glass {
-  background: rgba(255, 255, 255, 0.85);
+  background: rgba(255, 255, 255, 0.92);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
 }
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
+  height: 6px;
 }
 ::-webkit-scrollbar-track {
   background: var(--bg-light-gray);
@@ -176,16 +213,11 @@ h1, h2, h3, h4, h5, h6 {
 
 @keyframes floatSlow {
   0%, 100% { transform: translateY(0px) rotate(0deg); }
-  50% { transform: translateY(-10px) rotate(3deg); }
-}
-
-@keyframes pulseGlow {
-  0%, 100% { box-shadow: 0 0 15px rgba(0, 85, 255, 0.2); }
-  50% { box-shadow: 0 0 30px rgba(0, 85, 255, 0.5); }
+  50% { transform: translateY(-8px) rotate(3deg); }
 }
 
 .animate-fade-in {
-  animation: fadeIn 0.5s ease-out forwards;
+  animation: fadeIn 0.4s ease-out forwards;
 }
 
 .animate-float {

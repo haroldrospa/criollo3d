@@ -103,23 +103,24 @@ export default function ProductModal({ product, onClose, onAddToCart }) {
           display: flex;
           align-items: center;
           justify-content: center;
-          padding: 1.5rem;
+          padding: 1rem;
         }
 
         .modal-content {
           background: #ffffff;
           width: 100%;
           max-width: 860px;
+          max-height: 90vh;
           border-radius: 24px;
           position: relative;
-          overflow: hidden;
+          overflow-y: auto;
           box-shadow: 0 25px 50px rgba(0,0,0,0.2);
         }
 
         .modal-close-btn {
           position: absolute;
-          top: 18px;
-          right: 18px;
+          top: 14px;
+          right: 14px;
           width: 36px;
           height: 36px;
           border-radius: 50%;
@@ -147,17 +148,17 @@ export default function ProductModal({ product, onClose, onAddToCart }) {
           display: flex;
           align-items: center;
           justify-content: center;
-          padding: 3rem 2rem;
+          padding: clamp(2rem, 4vw, 3rem) 1.5rem;
         }
 
         .modal-img {
           max-width: 100%;
-          max-height: 340px;
+          max-height: 300px;
           object-fit: contain;
         }
 
         .modal-info {
-          padding: 2.5rem 2rem;
+          padding: clamp(1.5rem, 3vw, 2.5rem) 1.5rem;
           display: flex;
           flex-direction: column;
         }
@@ -175,7 +176,7 @@ export default function ProductModal({ product, onClose, onAddToCart }) {
         .modal-title {
           font-family: var(--font-heading);
           font-weight: 800;
-          font-size: 1.8rem;
+          font-size: clamp(1.4rem, 3vw, 1.8rem);
           color: #111827;
           margin-bottom: 0.5rem;
           line-height: 1.2;
@@ -204,7 +205,7 @@ export default function ProductModal({ product, onClose, onAddToCart }) {
         }
 
         .modal-desc {
-          font-size: 0.95rem;
+          font-size: 0.92rem;
           color: #4B5563;
           line-height: 1.6;
           margin-bottom: 1.5rem;
@@ -246,8 +247,9 @@ export default function ProductModal({ product, onClose, onAddToCart }) {
 
         .modal-buy-row {
           display: flex;
-          gap: 1rem;
+          gap: 0.75rem;
           margin-bottom: 1.5rem;
+          flex-wrap: wrap;
         }
 
         .modal-qty-picker {
@@ -255,7 +257,7 @@ export default function ProductModal({ product, onClose, onAddToCart }) {
           align-items: center;
           border: 1px solid #D1D5DB;
           border-radius: 99px;
-          height: 48px;
+          height: 44px;
           padding: 0 0.5rem;
         }
 
@@ -275,8 +277,9 @@ export default function ProductModal({ product, onClose, onAddToCart }) {
 
         .modal-add-btn {
           flex: 1;
-          height: 48px;
-          font-size: 0.82rem;
+          min-width: 200px;
+          height: 44px;
+          font-size: 0.8rem;
         }
 
         .modal-guarantees {
@@ -300,7 +303,10 @@ export default function ProductModal({ product, onClose, onAddToCart }) {
             grid-template-columns: 1fr;
           }
           .modal-img-box {
-            padding: 2rem;
+            padding: 1.5rem;
+          }
+          .modal-add-btn {
+            width: 100%;
           }
         }
       `}</style>

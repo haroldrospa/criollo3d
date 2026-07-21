@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowRight, Sparkles } from 'lucide-react';
+import { Sparkles } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 
 export default function Hero({ onExploreClick, onQuoteClick }) {
@@ -37,7 +37,7 @@ export default function Hero({ onExploreClick, onQuoteClick }) {
             
             {/* Floating Isometric 3D Blue Cube graphic matching reference */}
             <div className="floating-blue-cube animate-float">
-              <svg viewBox="0 0 100 100" width="70" height="70" fill="none">
+              <svg viewBox="0 0 100 100" width="60" height="60" fill="none">
                 <path d="M50 10 L85 30 L85 70 L50 90 L15 70 L15 30 Z" fill="#0055FF" />
                 <path d="M50 10 L85 30 L50 50 L15 30 Z" fill="#2973FF" />
                 <path d="M50 50 L85 30 L85 70 L50 90 Z" fill="#0044CC" />
@@ -60,7 +60,7 @@ export default function Hero({ onExploreClick, onQuoteClick }) {
 
       <style>{`
         .hero-section {
-          padding: 4rem 0 5rem 0;
+          padding: clamp(2rem, 5vw, 4.5rem) 0 clamp(2.5rem, 6vw, 5.5rem) 0;
           background-color: #ffffff;
           position: relative;
           overflow: hidden;
@@ -70,29 +70,30 @@ export default function Hero({ onExploreClick, onQuoteClick }) {
           display: grid;
           grid-template-columns: 1fr 1fr;
           align-items: center;
-          gap: 3rem;
+          gap: clamp(2rem, 4vw, 3.5rem);
         }
 
         .hero-content {
           max-width: 580px;
+          width: 100%;
         }
 
         .hero-title {
           font-family: var(--font-heading);
           font-weight: 800;
-          font-size: 3.8rem;
-          line-height: 1.05;
+          font-size: clamp(2.2rem, 5vw, 3.8rem);
+          line-height: 1.08;
           letter-spacing: -0.03em;
           color: #111827;
-          margin-bottom: 1.5rem;
+          margin-bottom: 1.25rem;
           text-transform: uppercase;
         }
 
         .hero-subtitle {
-          font-size: 1.15rem;
+          font-size: clamp(1rem, 2.2vw, 1.15rem);
           line-height: 1.6;
           color: #4B5563;
-          margin-bottom: 2.2rem;
+          margin-bottom: 2rem;
           font-weight: 400;
           max-width: 480px;
         }
@@ -100,18 +101,20 @@ export default function Hero({ onExploreClick, onQuoteClick }) {
         .hero-actions {
           display: flex;
           align-items: center;
-          gap: 1rem;
+          gap: 0.85rem;
           flex-wrap: wrap;
         }
 
         .hero-btn {
-          font-size: 0.9rem;
-          padding: 0.95rem 2.4rem;
-          letter-spacing: 0.06em;
+          font-size: 0.88rem;
+          padding: 0.9rem 2.2rem;
+          letter-spacing: 0.05em;
+          flex: 0 0 auto;
         }
 
         .hero-quote-btn {
-          padding: 0.9rem 1.8rem;
+          padding: 0.85rem 1.6rem;
+          flex: 0 0 auto;
         }
 
         .hero-visual {
@@ -119,19 +122,20 @@ export default function Hero({ onExploreClick, onQuoteClick }) {
           display: flex;
           justify-content: center;
           align-items: center;
+          width: 100%;
         }
 
         .visual-wrapper {
           position: relative;
           width: 100%;
-          max-width: 460px;
+          max-width: 440px;
           display: flex;
           justify-content: center;
         }
 
         .hero-image-box {
           width: 100%;
-          max-width: 420px;
+          max-width: 400px;
           position: relative;
           z-index: 2;
           filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.08));
@@ -147,8 +151,8 @@ export default function Hero({ onExploreClick, onQuoteClick }) {
 
         .floating-blue-cube {
           position: absolute;
-          top: 35%;
-          left: 5%;
+          top: 30%;
+          left: 2%;
           z-index: 3;
           filter: drop-shadow(0 10px 20px rgba(0, 85, 255, 0.35));
         }
@@ -162,10 +166,6 @@ export default function Hero({ onExploreClick, onQuoteClick }) {
 
           .hero-content {
             margin: 0 auto;
-          }
-
-          .hero-title {
-            font-size: 2.8rem;
           }
 
           .hero-subtitle {
@@ -182,18 +182,26 @@ export default function Hero({ onExploreClick, onQuoteClick }) {
           }
 
           .floating-blue-cube {
-            left: 0;
-            top: 20%;
+            left: 5%;
+            top: 15%;
           }
         }
 
-        @media (max-width: 580px) {
-          .hero-title {
-            font-size: 2.2rem;
+        @media (max-width: 480px) {
+          .hero-actions {
+            flex-direction: column;
+            width: 100%;
           }
 
-          .hero-section {
-            padding: 2.5rem 0 3.5rem 0;
+          .hero-btn, .hero-quote-btn {
+            width: 100%;
+          }
+
+          .floating-blue-cube {
+            width: 45px;
+            height: 45px;
+            left: 0;
+            top: 10%;
           }
         }
       `}</style>

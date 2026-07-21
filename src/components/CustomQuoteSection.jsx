@@ -468,7 +468,7 @@ export default function CustomQuoteSection({ onQuoteSubmitted }) {
 
       <style>{`
         .quote-section {
-          padding: 5rem 0 6rem 0;
+          padding: clamp(3rem, 5vw, 5rem) 0 clamp(3.5rem, 6vw, 6rem) 0;
           background-color: var(--bg-light-gray);
           border-top: 1px solid var(--border-light);
           border-bottom: 1px solid var(--border-light);
@@ -476,7 +476,7 @@ export default function CustomQuoteSection({ onQuoteSubmitted }) {
 
         .quote-header {
           max-width: 680px;
-          margin: 0 auto 3.5rem auto;
+          margin: 0 auto clamp(2rem, 4vw, 3.5rem) auto;
           text-align: center;
         }
 
@@ -496,14 +496,14 @@ export default function CustomQuoteSection({ onQuoteSubmitted }) {
         .quote-title {
           font-family: var(--font-heading);
           font-weight: 800;
-          font-size: 2.5rem;
+          font-size: clamp(1.8rem, 4vw, 2.5rem);
           color: #111827;
           margin-bottom: 0.8rem;
           letter-spacing: -0.02em;
         }
 
         .quote-subtitle {
-          font-size: 1.05rem;
+          font-size: clamp(0.95rem, 2vw, 1.05rem);
           color: #4B5563;
           line-height: 1.6;
         }
@@ -511,14 +511,14 @@ export default function CustomQuoteSection({ onQuoteSubmitted }) {
         .quote-grid {
           display: grid;
           grid-template-columns: 1.2fr 0.8fr;
-          gap: 2.5rem;
+          gap: clamp(1.5rem, 3vw, 2.5rem);
           align-items: start;
         }
 
         .quote-step-box {
           background-color: #ffffff;
           border-radius: 20px;
-          padding: 2rem;
+          padding: clamp(1.25rem, 3vw, 2rem);
           margin-bottom: 1.5rem;
           box-shadow: 0 4px 16px rgba(0,0,0,0.03);
           border: 1px solid rgba(0,0,0,0.04);
@@ -528,7 +528,7 @@ export default function CustomQuoteSection({ onQuoteSubmitted }) {
           display: flex;
           align-items: center;
           gap: 0.8rem;
-          margin-bottom: 1.5rem;
+          margin-bottom: 1.25rem;
         }
 
         .step-num {
@@ -542,10 +542,11 @@ export default function CustomQuoteSection({ onQuoteSubmitted }) {
           display: flex;
           align-items: center;
           justify-content: center;
+          flex-shrink: 0;
         }
 
         .step-title h3 {
-          font-size: 1.25rem;
+          font-size: clamp(1.05rem, 2.2vw, 1.25rem);
           font-weight: 700;
           color: #111827;
         }
@@ -554,7 +555,7 @@ export default function CustomQuoteSection({ onQuoteSubmitted }) {
         .drag-drop-zone {
           border: 2px dashed #CBD5E1;
           border-radius: 16px;
-          padding: 2.5rem 1.5rem;
+          padding: clamp(1.5rem, 4vw, 2.5rem) 1rem;
           text-align: center;
           background-color: #FAFAFA;
           transition: all 0.25s ease;
@@ -574,8 +575,8 @@ export default function CustomQuoteSection({ onQuoteSubmitted }) {
         }
 
         .upload-icon-circle {
-          width: 56px;
-          height: 56px;
+          width: 52px;
+          height: 52px;
           border-radius: 50%;
           background-color: #ffffff;
           color: var(--primary-blue);
@@ -587,14 +588,14 @@ export default function CustomQuoteSection({ onQuoteSubmitted }) {
         }
 
         .drop-prompt h4 {
-          font-size: 1.1rem;
+          font-size: 1.05rem;
           font-weight: 700;
           color: #111827;
           margin-bottom: 0.3rem;
         }
 
         .drop-prompt p {
-          font-size: 0.88rem;
+          font-size: 0.85rem;
           color: #6B7280;
         }
 
@@ -614,16 +615,17 @@ export default function CustomQuoteSection({ onQuoteSubmitted }) {
           justify-content: space-between;
           gap: 1rem;
           text-align: left;
+          flex-wrap: wrap;
         }
 
         .file-info-active h4 {
-          font-size: 1rem;
+          font-size: 0.95rem;
           font-weight: 700;
           color: #111827;
         }
 
         .file-info-active p {
-          font-size: 0.85rem;
+          font-size: 0.82rem;
           color: #4B5563;
         }
 
@@ -650,7 +652,7 @@ export default function CustomQuoteSection({ onQuoteSubmitted }) {
         .sample-btns button {
           background: #F3F4F6;
           border: 1px solid #E5E7EB;
-          padding: 0.35rem 0.75rem;
+          padding: 0.4rem 0.75rem;
           border-radius: 8px;
           font-size: 0.8rem;
           font-weight: 600;
@@ -681,7 +683,7 @@ export default function CustomQuoteSection({ onQuoteSubmitted }) {
 
         .materials-grid {
           display: grid;
-          grid-template-columns: repeat(2, 1fr);
+          grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
           gap: 0.75rem;
         }
 
@@ -690,7 +692,7 @@ export default function CustomQuoteSection({ onQuoteSubmitted }) {
           background: #F9FAFB;
           border: 2px solid #E5E7EB;
           border-radius: 12px;
-          padding: 0.75rem 1rem;
+          padding: 0.75rem 0.9rem;
           transition: all 0.2s ease;
         }
 
@@ -706,7 +708,7 @@ export default function CustomQuoteSection({ onQuoteSubmitted }) {
         .mat-name {
           display: block;
           font-weight: 700;
-          font-size: 0.9rem;
+          font-size: 0.88rem;
           color: #111827;
         }
 
@@ -718,12 +720,13 @@ export default function CustomQuoteSection({ onQuoteSubmitted }) {
 
         .color-swatches {
           display: flex;
-          gap: 0.75rem;
+          gap: 0.6rem;
+          flex-wrap: wrap;
         }
 
         .swatch-btn {
-          width: 34px;
-          height: 34px;
+          width: 36px;
+          height: 36px;
           border-radius: 50%;
           border: 2px solid #E5E7EB;
           display: flex;
@@ -733,7 +736,7 @@ export default function CustomQuoteSection({ onQuoteSubmitted }) {
         }
 
         .swatch-btn:hover {
-          transform: scale(1.15);
+          transform: scale(1.12);
         }
 
         .swatch-btn.active {
@@ -756,6 +759,7 @@ export default function CustomQuoteSection({ onQuoteSubmitted }) {
           width: 100%;
           accent-color: var(--primary-blue);
           margin-top: 0.3rem;
+          height: 6px;
         }
 
         .slider-labels {
@@ -772,9 +776,15 @@ export default function CustomQuoteSection({ onQuoteSubmitted }) {
           gap: 1rem;
         }
 
+        @media (max-width: 540px) {
+          .param-two-col {
+            grid-template-columns: 1fr;
+          }
+        }
+
         .select-input {
           width: 100%;
-          padding: 0.65rem 0.9rem;
+          padding: 0.7rem 0.9rem;
           border-radius: 10px;
           border: 1px solid #D1D5DB;
           font-size: 0.9rem;
@@ -788,11 +798,11 @@ export default function CustomQuoteSection({ onQuoteSubmitted }) {
           border-radius: 10px;
           background-color: #FFFFFF;
           overflow: hidden;
-          height: 40px;
+          height: 44px;
         }
 
         .qty-control button {
-          width: 36px;
+          width: 40px;
           height: 100%;
           font-size: 1.1rem;
           font-weight: 700;
@@ -813,10 +823,10 @@ export default function CustomQuoteSection({ onQuoteSubmitted }) {
         /* Right Sticky Calculator & Form */
         .quote-summary-sticky {
           position: sticky;
-          top: 100px;
+          top: 90px;
           background-color: #ffffff;
           border-radius: 20px;
-          padding: 2rem;
+          padding: clamp(1.25rem, 3vw, 2rem);
           box-shadow: 0 10px 30px rgba(0,0,0,0.06);
           border: 1px solid rgba(0,0,0,0.05);
         }
@@ -842,13 +852,13 @@ export default function CustomQuoteSection({ onQuoteSubmitted }) {
         .metric-box {
           background-color: var(--bg-light-gray);
           border-radius: 12px;
-          padding: 0.75rem 1rem;
+          padding: 0.75rem 0.85rem;
           text-align: center;
         }
 
         .metric-lbl {
           display: block;
-          font-size: 0.75rem;
+          font-size: 0.72rem;
           color: #6B7280;
           text-transform: uppercase;
           letter-spacing: 0.05em;
@@ -856,7 +866,7 @@ export default function CustomQuoteSection({ onQuoteSubmitted }) {
         }
 
         .metric-val {
-          font-size: 1.1rem;
+          font-size: 1.05rem;
           font-weight: 800;
           color: #111827;
         }
@@ -871,7 +881,7 @@ export default function CustomQuoteSection({ onQuoteSubmitted }) {
         .price-row {
           display: flex;
           justify-content: space-between;
-          font-size: 0.9rem;
+          font-size: 0.88rem;
           color: #374151;
           margin-bottom: 0.4rem;
         }
@@ -894,7 +904,7 @@ export default function CustomQuoteSection({ onQuoteSubmitted }) {
 
         .big-price {
           font-family: var(--font-heading);
-          font-size: 1.6rem !important;
+          font-size: 1.5rem !important;
           font-weight: 800 !important;
           color: var(--primary-blue) !important;
         }
@@ -912,7 +922,7 @@ export default function CustomQuoteSection({ onQuoteSubmitted }) {
 
         .input-field input, .input-field textarea {
           width: 100%;
-          padding: 0.75rem 1rem;
+          padding: 0.8rem 1rem;
           border-radius: 10px;
           border: 1px solid #D1D5DB;
           font-size: 0.9rem;
@@ -947,7 +957,7 @@ export default function CustomQuoteSection({ onQuoteSubmitted }) {
         .quote-success-box {
           background: #ffffff;
           border-radius: 24px;
-          padding: 3.5rem 2.5rem;
+          padding: clamp(2rem, 4vw, 3.5rem) clamp(1.25rem, 3vw, 2.5rem);
           max-width: 720px;
           margin: 0 auto;
           text-align: center;
@@ -955,8 +965,8 @@ export default function CustomQuoteSection({ onQuoteSubmitted }) {
         }
 
         .success-icon-wrapper {
-          width: 80px;
-          height: 80px;
+          width: 72px;
+          height: 72px;
           border-radius: 50%;
           background-color: var(--primary-blue-light);
           display: flex;
@@ -969,14 +979,14 @@ export default function CustomQuoteSection({ onQuoteSubmitted }) {
 
         .quote-success-box h3 {
           font-family: var(--font-heading);
-          font-size: 2rem;
+          font-size: clamp(1.5rem, 3vw, 2rem);
           font-weight: 800;
           color: #111827;
           margin-bottom: 0.8rem;
         }
 
         .success-msg {
-          font-size: 1.05rem;
+          font-size: 1rem;
           color: #4B5563;
           line-height: 1.6;
           margin-bottom: 2rem;
@@ -985,7 +995,7 @@ export default function CustomQuoteSection({ onQuoteSubmitted }) {
         .quote-summary-card {
           background-color: var(--bg-light-gray);
           border-radius: 16px;
-          padding: 1.5rem;
+          padding: 1.25rem;
           text-align: left;
           margin-bottom: 2rem;
         }
@@ -995,20 +1005,22 @@ export default function CustomQuoteSection({ onQuoteSubmitted }) {
           justify-content: space-between;
           padding: 0.6rem 0;
           border-bottom: 1px solid #E5E7EB;
-          font-size: 0.95rem;
+          font-size: 0.9rem;
           color: #374151;
+          gap: 0.5rem;
+          flex-wrap: wrap;
         }
 
         .summary-row.total-row {
           border-bottom: none;
           padding-top: 1rem;
           font-weight: 800;
-          font-size: 1.1rem;
+          font-size: 1.05rem;
         }
 
         .total-price-tag {
           color: var(--primary-blue);
-          font-size: 1.3rem;
+          font-size: 1.25rem;
         }
 
         .success-actions {
@@ -1020,9 +1032,6 @@ export default function CustomQuoteSection({ onQuoteSubmitted }) {
 
         @media (max-width: 900px) {
           .quote-grid {
-            grid-template-columns: 1fr;
-          }
-          .materials-grid {
             grid-template-columns: 1fr;
           }
           .quote-summary-sticky {

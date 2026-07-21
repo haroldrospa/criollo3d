@@ -40,29 +40,29 @@ export default function FeaturedCollections({ onSelectCategory }) {
 
       <style>{`
         .featured-section {
-          padding: 3rem 0 5rem 0;
+          padding: clamp(2.5rem, 5vw, 4.5rem) 0 clamp(3rem, 6vw, 5rem) 0;
           background-color: #ffffff;
         }
 
         .section-title {
           font-family: var(--font-heading);
           font-weight: 700;
-          font-size: 2.2rem;
+          font-size: clamp(1.8rem, 4vw, 2.3rem);
           color: #111827;
-          margin-bottom: 2.5rem;
+          margin-bottom: clamp(1.8rem, 4vw, 2.8rem);
           letter-spacing: -0.02em;
         }
 
         .collections-grid {
           display: grid;
           grid-template-columns: repeat(3, 1fr);
-          gap: 2rem;
+          gap: clamp(1.2rem, 3vw, 2rem);
         }
 
         .collection-card {
           background-color: var(--bg-light-gray);
           border-radius: 20px;
-          padding: 2.5rem 1.5rem 2rem 1.5rem;
+          padding: clamp(1.5rem, 3vw, 2.5rem) 1.25rem clamp(1.5rem, 3vw, 2rem) 1.25rem;
           display: flex;
           flex-direction: column;
           align-items: center;
@@ -79,11 +79,11 @@ export default function FeaturedCollections({ onSelectCategory }) {
 
         .collection-img-box {
           width: 100%;
-          height: 200px;
+          height: clamp(160px, 20vw, 210px);
           display: flex;
           align-items: center;
           justify-content: center;
-          margin-bottom: 1.5rem;
+          margin-bottom: 1.25rem;
         }
 
         .collection-img {
@@ -102,13 +102,13 @@ export default function FeaturedCollections({ onSelectCategory }) {
           display: flex;
           flex-direction: column;
           align-items: center;
-          gap: 1.2rem;
+          gap: 1rem;
         }
 
         .collection-name {
           font-family: var(--font-heading);
           font-weight: 700;
-          font-size: 1.5rem;
+          font-size: clamp(1.2rem, 2.5vw, 1.55rem);
           color: #111827;
         }
 
@@ -125,13 +125,15 @@ export default function FeaturedCollections({ onSelectCategory }) {
           }
         }
 
-        @media (max-width: 600px) {
+        @media (max-width: 580px) {
           .collections-grid {
             grid-template-columns: 1fr;
           }
           .section-title {
-            font-size: 1.8rem;
             text-align: center;
+          }
+          .collection-btn {
+            width: 100%;
           }
         }
       `}</style>
