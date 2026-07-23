@@ -42,7 +42,7 @@ export default function ProductModal({ product, onClose, onAddToCart }) {
             </div>
 
             <div className="modal-price">
-              ${product.price.toFixed(2)} <span className="modal-currency">USD</span>
+              RD$ {product.price.toFixed(2)} <span className="modal-currency">DOP</span>
             </div>
 
             <p className="modal-desc">{product.description}</p>
@@ -74,7 +74,7 @@ export default function ProductModal({ product, onClose, onAddToCart }) {
               </div>
 
               <button className="btn-primary modal-add-btn" onClick={handleAdd}>
-                <ShoppingBag size={18} /> {t('modal.addBtn')} - ${(product.price * quantity).toFixed(2)}
+                <ShoppingBag size={18} /> {t('modal.addBtn')} - RD$ ${(product.price * quantity).toFixed(2)}
               </button>
             </div>
 

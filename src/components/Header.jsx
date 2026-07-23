@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { ShoppingBag, Search, Menu, X, Sparkles } from 'lucide-react';
+import { ShoppingBag, Search, Menu, X, Sparkles, User, ShieldCheck, LogOut } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
+import { useAuth } from '../context/AuthContext';
 
 export default function Header({ 
   cartCount, 
@@ -10,6 +11,7 @@ export default function Header({
   onOpenSearch
 }) {
   const { language, setLanguage, t } = useLanguage();
+  const { user, isAdmin, openLoginModal, logout } = useAuth();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -24,7 +26,6 @@ export default function Header({
   const navLinks = [
     { id: 'home', label: t('nav.home') },
     { id: 'shop', label: t('nav.shop') },
-    { id: 'quote', label: t('nav.quote'), isHighlight: true },
     { id: 'about', label: t('nav.about') },
     { id: 'contact', label: t('nav.contact') },
   ];
@@ -33,6 +34,8 @@ export default function Header({
     setActiveTab(id);
     setIsMobileMenuOpen(false);
     
+    if (id === 'admin') return;
+
     if (id === 'home') {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
@@ -47,14 +50,9 @@ export default function Header({
     <header className={`header ${isScrolled ? 'scrolled glass' : ''}`}>
       <div className="container header-container">
         
-        {/* Clean Brand Logo */}
+        {/* Clean Brand Logo Image */}
         <div className="brand" onClick={() => handleNavClick('home')}>
-          <div className="logo-icon-wrapper">
-            <img src="/logo_icon_transparent.png" alt="Criollo 3D Emblem" className="logo-icon-img" />
-          </div>
-          <span className="brand-title">
-            CRIOLLO<span className="blue-3d">3D</span>
-          </span>
+          <img src="/logo_full_transparent.png" alt="Criollo3D" className="brand-logo-img" />
         </div>
 
         {/* Desktop Navigation */}
@@ -69,9 +67,20 @@ export default function Header({
               {link.label}
             </button>
           ))}
+
+          {/* Admin shortcut in header if logged in as Admin */}
+          {isAdmin && (
+            <button
+              onClick={() => handleNavClick('admin')}
+              className={`nav-link admin-nav-btn ${activeTab === 'admin' ? 'active' : ''}`}
+            >
+              <ShieldCheck size={16} className="text-blue" />
+              Panel Admin
+            </button>
+          )}
         </nav>
 
-        {/* Right Actions - Minimal & Clean */}
+        {/* Right Actions */}
         <div className="header-actions">
           
           {/* Desktop Language Switcher */}
@@ -111,6 +120,28 @@ export default function Header({
               <span className="cart-badge animate-scale">{cartCount}</span>
             )}
           </button>
+
+          {/* User Auth Section */}
+          {user ? (
+            <div className="user-header-menu">
+              <button 
+                className="user-badge-btn"
+                onClick={() => isAdmin ? handleNavClick('admin') : null}
+                title={user.name}
+              >
+                <img src={user.avatar} alt={user.name} className="header-user-avatar" />
+                <span className="header-user-name">{user.name.split(' ')[0]}</span>
+                {isAdmin && <span className="admin-chip">Admin</span>}
+              </button>
+              <button className="action-btn logout-sm-btn" onClick={logout} title="Cerrar Sesión">
+                <LogOut size={16} />
+              </button>
+            </div>
+          ) : (
+            <button className="auth-login-btn" onClick={openLoginModal}>
+              <User size={17} /> Iniciar Sesión
+            </button>
+          )}
 
           <button 
             className="mobile-toggle"
@@ -156,6 +187,34 @@ export default function Header({
                 {link.label}
               </button>
             ))}
+
+            {isAdmin && (
+              <button
+                onClick={() => handleNavClick('admin')}
+                className={`mobile-nav-link admin-mobile-link ${activeTab === 'admin' ? 'active' : ''}`}
+              >
+                <ShieldCheck size={18} />
+                Panel Admin (Control Total)
+              </button>
+            )}
+
+            {!user ? (
+              <button
+                onClick={() => { setIsMobileMenuOpen(false); openLoginModal(); }}
+                className="mobile-nav-link auth-mobile-link"
+              >
+                <User size={18} />
+                Iniciar Sesión / Acceso
+              </button>
+            ) : (
+              <button
+                onClick={() => { setIsMobileMenuOpen(false); logout(); }}
+                className="mobile-nav-link logout-mobile-link"
+              >
+                <LogOut size={18} />
+                Cerrar Sesión ({user.name})
+              </button>
+            )}
           </div>
 
         </div>
@@ -172,6 +231,85 @@ export default function Header({
           border-bottom: 1px solid rgba(0, 0, 0, 0.06);
           transition: all 0.25s ease;
           padding: 0.9rem 0;
+        }
+
+        .auth-login-btn {
+          display: flex;
+          align-items: center;
+          gap: 0.4rem;
+          background: #f1f5f9;
+          color: #0f172a;
+          font-size: 0.82rem;
+          font-weight: 700;
+          padding: 0.45rem 0.85rem;
+          border-radius: 99px;
+          transition: all 0.2s ease;
+        }
+
+        .auth-login-btn:hover {
+          background: var(--primary-blue, #0055ff);
+          color: #ffffff;
+        }
+
+        .user-header-menu {
+          display: flex;
+          align-items: center;
+          gap: 0.4rem;
+        }
+
+        .user-badge-btn {
+          display: flex;
+          align-items: center;
+          gap: 0.45rem;
+          background: #f8fafc;
+          border: 1px solid #e2e8f0;
+          padding: 0.25rem 0.65rem 0.25rem 0.35rem;
+          border-radius: 99px;
+          cursor: pointer;
+        }
+
+        .header-user-avatar {
+          width: 26px;
+          height: 26px;
+          border-radius: 50%;
+          object-fit: cover;
+        }
+
+        .header-user-name {
+          font-size: 0.82rem;
+          font-weight: 700;
+          color: #0f172a;
+        }
+
+        .admin-chip {
+          background: #0055ff;
+          color: #ffffff;
+          font-size: 0.65rem;
+          font-weight: 800;
+          padding: 0.15rem 0.4rem;
+          border-radius: 99px;
+          text-transform: uppercase;
+        }
+
+        .admin-nav-btn {
+          color: #0055ff !important;
+          font-weight: 700 !important;
+          display: flex;
+          align-items: center;
+          gap: 0.3rem;
+        }
+
+        .admin-mobile-link {
+          color: #0055ff !important;
+          font-weight: 800 !important;
+        }
+
+        .auth-mobile-link {
+          color: #0f172a !important;
+        }
+
+        .logout-mobile-link {
+          color: #ef4444 !important;
         }
 
         .header.scrolled {
@@ -193,30 +331,11 @@ export default function Header({
           user-select: none;
         }
 
-        .logo-icon-wrapper {
-          width: 36px;
-          height: 36px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        }
-
-        .logo-icon-img {
-          width: 100%;
-          height: 100%;
+        .brand-logo-img {
+          height: 38px;
+          max-width: 180px;
+          width: auto;
           object-fit: contain;
-        }
-
-        .brand-title {
-          font-family: var(--font-heading);
-          font-weight: 800;
-          font-size: 1.25rem;
-          letter-spacing: -0.03em;
-          color: #111827;
-        }
-
-        .blue-3d {
-          color: var(--primary-blue);
         }
 
         .nav-desktop {

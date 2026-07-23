@@ -117,7 +117,7 @@ export default function CartDrawer({ isOpen, onClose, cartItems, onUpdateQuantit
                       </div>
 
                       <strong className="item-total-price">
-                        ${(item.price * item.quantity).toFixed(2)}
+                        RD$ {(item.price * item.quantity).toFixed(2)}
                       </strong>
                     </div>
                   </div>
@@ -129,17 +129,17 @@ export default function CartDrawer({ isOpen, onClose, cartItems, onUpdateQuantit
             <div className="cart-footer">
               <div className="summary-line">
                 <span>{t('cart.subtotal')}</span>
-                <strong>${subtotal.toFixed(2)} USD</strong>
+                <strong>RD$ {subtotal.toFixed(2)} DOP</strong>
               </div>
               <div className="summary-line">
                 <span>{t('cart.shipping')}</span>
-                <span>{remainingForFreeShipping === 0 ? t('cart.free') : '$4.99 USD'}</span>
+                <span>{remainingForFreeShipping === 0 ? t('cart.free') : 'RD$ 290.00 DOP'}</span>
               </div>
               <div className="summary-divider"></div>
               <div className="summary-line total-line">
                 <span>{t('cart.total')}</span>
                 <span className="cart-total-price">
-                  ${(subtotal + (remainingForFreeShipping === 0 ? 0 : 4.99)).toFixed(2)} USD
+                  RD$ {(subtotal + (remainingForFreeShipping === 0 ? 0 : 290)).toFixed(2)} DOP
                 </span>
               </div>
 

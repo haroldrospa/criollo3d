@@ -7,13 +7,15 @@ export default function ProductCatalog({
   selectedCategory, 
   onSelectCategory, 
   onAddToCart, 
-  onQuickView 
+  onQuickView,
+  products = PRODUCTS
 }) {
   const { t } = useLanguage();
   const [searchQuery, setSearchQuery] = useState('');
+  const productList = products && products.length > 0 ? products : PRODUCTS;
 
   // Filter products
-  const filteredProducts = PRODUCTS.filter((product) => {
+  const filteredProducts = productList.filter((product) => {
     const matchesCategory = selectedCategory === 'all' || product.category === selectedCategory;
     const matchesSearch = product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
                           product.description.toLowerCase().includes(searchQuery.toLowerCase());
@@ -115,9 +117,9 @@ export default function ProductCatalog({
 
                   <div className="product-footer">
                     <div className="price-tag">
-                      <span className="currency">$</span>
+                      <span className="currency">RD$</span>
                       <span className="amount">{product.price.toFixed(2)}</span>
-                      <span className="unit">USD</span>
+                      <span className="unit">DOP</span>
                     </div>
 
                     <button 

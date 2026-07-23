@@ -383,7 +383,7 @@ export default function CustomQuoteSection({ onQuoteSubmitted }) {
                 <div className="price-breakdown">
                   <div className="price-row">
                     <span>{t('quote.unitPrice')}</span>
-                    <strong>${unitPrice.toFixed(2)} USD</strong>
+                    <strong>RD$ {unitPrice.toFixed(2)} DOP</strong>
                   </div>
                   <div className="price-row">
                     <span>{t('quote.quantity')}</span>
@@ -392,7 +392,7 @@ export default function CustomQuoteSection({ onQuoteSubmitted }) {
                   <div className="price-divider"></div>
                   <div className="price-row total">
                     <span>{t('quote.totalEst')}</span>
-                    <span className="big-price">${totalPrice.toFixed(2)} USD</span>
+                    <span className="big-price">RD$ {totalPrice.toFixed(2)} DOP</span>
                   </div>
                 </div>
 

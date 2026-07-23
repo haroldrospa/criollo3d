@@ -2,8 +2,15 @@ import React from 'react';
 import { Sparkles } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 
-export default function Hero({ onExploreClick, onQuoteClick }) {
+export default function Hero({ onExploreClick, onQuoteClick, heroContent = {} }) {
   const { t } = useLanguage();
+
+  const title1 = heroContent.titleLine1 || t('hero.title1');
+  const title2 = heroContent.titleLine2 || t('hero.title2');
+  const subtitle = heroContent.subtitle || t('hero.subtitle');
+  const btn1 = heroContent.btn1Text || t('hero.shopNow');
+  const btn2 = heroContent.btn2Text || t('hero.quoteBtn');
+  const heroImg = heroContent.image || '/images/hero_david_white.png';
 
   return (
     <section className="hero-section">
@@ -12,21 +19,20 @@ export default function Hero({ onExploreClick, onQuoteClick }) {
         {/* Left Column: Text & Call to Action */}
         <div className="hero-content">
           <h1 className="hero-title">
-            {t('hero.title1')}<br />
-            {t('hero.title2')}<br />
-            {t('hero.title3')}
+            {title1}<br />
+            {title2}
           </h1>
 
           <p className="hero-subtitle">
-            {t('hero.subtitle')}
+            {subtitle}
           </p>
 
           <div className="hero-actions">
             <button className="btn-primary hero-btn" onClick={onExploreClick}>
-              {t('hero.shopNow')}
+              {btn1}
             </button>
             <button className="btn-outline hero-quote-btn" onClick={onQuoteClick}>
-              <Sparkles size={16} /> {t('hero.quoteBtn')}
+              <Sparkles size={16} /> {btn2}
             </button>
           </div>
         </div>
@@ -47,8 +53,8 @@ export default function Hero({ onExploreClick, onQuoteClick }) {
             {/* Main Classical Bust Sculpture Image */}
             <div className="hero-image-box">
               <img 
-                src="/images/hero_david_white.png" 
-                alt="3D Printed Michelangelo David Bust" 
+                src={heroImg} 
+                alt="3D Printed Bust" 
                 className="hero-image"
               />
             </div>
