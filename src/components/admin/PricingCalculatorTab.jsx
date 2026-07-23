@@ -729,8 +729,18 @@ export default function PricingCalculatorTab({ onSaveToInventory, onCreateInvoic
           background: #f8f9fb;
           border-color: #cbd5e1;
         }
+
+        @media (max-width: 640px) {
+          .calc-header-row { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
+          .grid-2-col { grid-template-columns: 1fr; }
+          .calc-card-panel { padding: 1rem; border-radius: 16px; }
+          .breakdown-card { padding: 1rem; border-radius: 16px; }
+          .price-hero-card { padding: 1.25rem; border-radius: 16px; }
+          .hero-price { font-size: 2.2rem; }
+        }
       `}</style>
 
     </div>
   );
 }
+

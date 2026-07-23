@@ -146,10 +146,30 @@ export default function AdminPanel({
         </div>
       </header>
 
+      {/* Mobile Horizontal Pill Scroll Navigation (Visible on mobile/tablet) */}
+      <div className="admin-mobile-subnav hide-scrollbar">
+        <div className="mobile-subnav-inner">
+          {navItems.map(item => {
+            const Icon = item.icon;
+            const isActive = activeTab === item.id;
+            return (
+              <button
+                key={item.id}
+                className={`mobile-subnav-btn ${isActive ? 'active' : ''}`}
+                onClick={() => setActiveTab(item.id)}
+              >
+                <Icon size={18} />
+                <span>{item.label}</span>
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
       {/* 2. Main Workspace Layout with Vertical Pill Sidebar */}
       <div className="quixotic-body-wrapper">
         
-        {/* Floating Vertical Icon Sidebar (Criollo3D Blue Bar) */}
+        {/* Floating Vertical Icon Sidebar (Criollo3D Blue Bar - Desktop) */}
         <aside className="quixotic-vertical-sidebar">
           <div className="sidebar-pill-card">
             {navItems.map(item => {
@@ -256,7 +276,7 @@ export default function AdminPanel({
         .quixotic-topbar {
           background: #ffffff;
           border-bottom: 1px solid #e5e7eb;
-          padding: 0.85rem 2rem;
+          padding: 0.85rem 1.5rem;
           position: sticky;
           top: 0;
           z-index: 99;
@@ -268,6 +288,7 @@ export default function AdminPanel({
           display: flex;
           align-items: center;
           justify-content: space-between;
+          gap: 1rem;
         }
 
         .quixotic-brand {
@@ -276,16 +297,17 @@ export default function AdminPanel({
           gap: 0.5rem;
           cursor: pointer;
           user-select: none;
+          flex-shrink: 0;
         }
 
         .brand-logo-img {
-          height: 38px;
-          max-width: 180px;
+          height: 36px;
+          max-width: 160px;
           width: auto;
           object-fit: contain;
         }
 
-        /* Pill Nav */
+        /* Desktop Pill Nav */
         .quixotic-pill-nav {
           display: flex;
           background: #ebf1ff;
@@ -295,12 +317,13 @@ export default function AdminPanel({
         }
 
         .nav-pill-item {
-          padding: 0.55rem 1.25rem;
+          padding: 0.55rem 1.15rem;
           border-radius: 99px;
-          font-size: 0.88rem;
+          font-size: 0.85rem;
           font-weight: 600;
           color: #4b5563;
           transition: all 0.2s ease;
+          white-space: nowrap;
           font-family: var(--font-body);
         }
 
@@ -318,12 +341,13 @@ export default function AdminPanel({
         .quixotic-header-right {
           display: flex;
           align-items: center;
-          gap: 0.75rem;
+          gap: 0.5rem;
+          flex-shrink: 0;
         }
 
         .icon-circle-btn {
-          width: 40px;
-          height: 40px;
+          width: 38px;
+          height: 38px;
           border-radius: 50%;
           background: #ebf1ff;
           color: #4b5563;
@@ -341,8 +365,8 @@ export default function AdminPanel({
 
         .blue-notif-dot {
           position: absolute;
-          top: 9px;
-          right: 9px;
+          top: 8px;
+          right: 8px;
           width: 8px;
           height: 8px;
           background: var(--primary-blue, #0055ff);
@@ -351,8 +375,8 @@ export default function AdminPanel({
         }
 
         .user-profile-pill {
-          width: 40px;
-          height: 40px;
+          width: 38px;
+          height: 38px;
           border-radius: 50%;
           overflow: hidden;
           border: 2px solid var(--primary-blue, #0055ff);
@@ -364,16 +388,58 @@ export default function AdminPanel({
           object-fit: cover;
         }
 
+        /* Mobile Subnav Bar */
+        .admin-mobile-subnav {
+          display: none;
+          background: #ffffff;
+          border-bottom: 1px solid #e5e7eb;
+          padding: 0.6rem 1rem;
+          overflow-x: auto;
+          -webkit-overflow-scrolling: touch;
+          position: sticky;
+          top: 57px;
+          z-index: 98;
+          box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+        }
+
+        .mobile-subnav-inner {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          width: max-content;
+        }
+
+        .mobile-subnav-btn {
+          display: flex;
+          align-items: center;
+          gap: 0.4rem;
+          padding: 0.5rem 0.95rem;
+          border-radius: 99px;
+          font-size: 0.8rem;
+          font-weight: 600;
+          color: #4b5563;
+          background: #f4f5f8;
+          white-space: nowrap;
+          transition: all 0.2s ease;
+        }
+
+        .mobile-subnav-btn.active {
+          background: var(--primary-blue, #0055ff);
+          color: #ffffff;
+          font-weight: 700;
+          box-shadow: 0 3px 10px rgba(0, 85, 255, 0.25);
+        }
+
         /* Body Wrapper */
         .quixotic-body-wrapper {
           display: flex;
           gap: 1.5rem;
           max-width: 1440px;
-          margin: 1.75rem auto 0 auto;
+          margin: 1.5rem auto 0 auto;
           padding: 0 1.5rem;
         }
 
-        /* Vertical Icon Sidebar */
+        /* Vertical Icon Sidebar (Desktop) */
         .quixotic-vertical-sidebar {
           display: flex;
           flex-direction: column;
@@ -427,20 +493,41 @@ export default function AdminPanel({
           min-width: 0;
         }
 
-        @media (max-width: 900px) {
+        @media (max-width: 1024px) {
           .quixotic-pill-nav {
             display: none;
           }
-          .quixotic-body-wrapper {
-            flex-direction: column;
+          .admin-mobile-subnav {
+            display: block;
           }
           .quixotic-vertical-sidebar {
-            flex-direction: row;
-            position: relative;
-            top: 0;
+            display: none;
           }
-          .sidebar-pill-card {
-            flex-direction: row;
+          .quixotic-body-wrapper {
+            margin-top: 1rem;
+            padding: 0 1rem;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .quixotic-topbar {
+            padding: 0.65rem 0.85rem;
+          }
+          .brand-logo-img {
+            height: 30px;
+            max-width: 130px;
+          }
+          .icon-circle-btn {
+            width: 34px;
+            height: 34px;
+          }
+          .user-profile-pill {
+            width: 34px;
+            height: 34px;
+          }
+          .admin-mobile-subnav {
+            top: 51px;
+            padding: 0.5rem 0.75rem;
           }
         }
       `}</style>

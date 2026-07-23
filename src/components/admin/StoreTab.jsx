@@ -1295,8 +1295,22 @@ export default function StoreTab({
             grid-template-columns: 1fr;
           }
         }
+
+        @media (max-width: 640px) {
+          .clean-grid-2 {
+            grid-template-columns: 1fr;
+          }
+          .clean-stock-options {
+            flex-direction: column;
+          }
+          .clean-editor-card {
+            padding: 1rem;
+            border-radius: 16px;
+          }
+        }
       `}</style>
 
     </div>
   );
 }
+

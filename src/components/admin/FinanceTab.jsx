@@ -787,8 +787,21 @@ export default function FinanceTab({ expenses, setExpenses, invoices, onToast })
           padding: 2rem;
           color: #9ca3af;
         }
+
+        @media (max-width: 1024px) {
+          .finance-kpi-grid { grid-template-columns: repeat(2, 1fr); }
+          .finance-split-grid { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 640px) {
+          .finance-kpi-grid { grid-template-columns: 1fr; gap: 0.75rem; }
+          .finance-hero-header { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
+          .finance-card { padding: 1rem; border-radius: 16px; }
+          .form-grid-2-col { grid-template-columns: 1fr !important; }
+        }
       `}</style>
 
     </div>
   );
 }
+

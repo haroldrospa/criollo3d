@@ -333,8 +333,27 @@ export default function SettingsTab({ socialLinks, setSocialLinks, onToast }) {
         .text-blue { color: #3b82f6; }
         .text-dark { color: #0f172a; }
         .text-cyan { color: #06b6d4; }
+
+        @media (max-width: 900px) {
+          .settings-grid {
+            grid-template-columns: 1fr;
+          }
+        }
+
+        @media (max-width: 640px) {
+          .settings-card {
+            padding: 1rem;
+            border-radius: 16px;
+          }
+          .settings-hero-header {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.75rem;
+          }
+        }
       `}</style>
 
     </div>
   );
 }
+

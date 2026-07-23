@@ -430,22 +430,49 @@ export default function ProductCatalog({
           margin-bottom: 1.5rem;
         }
 
+        .category-filters {
+          display: flex;
+          align-items: center;
+          gap: 0.65rem;
+          margin-bottom: 2rem;
+          overflow-x: auto;
+          -webkit-overflow-scrolling: touch;
+          padding-bottom: 0.5rem;
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
+
+        .category-filters::-webkit-scrollbar {
+          display: none;
+        }
+
         @media (max-width: 980px) {
           .products-grid {
             grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
           }
         }
 
         @media (max-width: 640px) {
           .products-grid {
             grid-template-columns: 1fr;
+            gap: 1.25rem;
           }
           .catalog-header {
             flex-direction: column;
             align-items: flex-start;
+            gap: 1rem;
           }
           .search-box {
             max-width: 100%;
+            width: 100%;
+          }
+          .product-img-box {
+            height: 210px;
+          }
+          .card-actions-overlay {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
           }
         }
       `}</style>

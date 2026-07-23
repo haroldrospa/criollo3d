@@ -1555,6 +1555,17 @@ export default function InvoicingTab({ invoices, setInvoices, onToast }) {
         @media (max-width: 900px) {
           .invoicing-kpi-grid { grid-template-columns: repeat(2, 1fr); }
         }
+
+        @media (max-width: 640px) {
+          .invoicing-kpi-grid { grid-template-columns: 1fr; gap: 0.75rem; }
+          .invoicing-header-row { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
+          .invoicing-controls-card { padding: 0.85rem; flex-direction: column; align-items: stretch; gap: 0.75rem; }
+          .search-box-wrapper { min-width: 100%; }
+          .type-pills-row { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+          .status-filter-wrapper { width: 100%; justify-content: space-between; }
+          .form-grid-2-col { grid-template-columns: 1fr !important; }
+          .item-row-form { flex-direction: column; align-items: stretch; gap: 0.5rem; background: #f8f9fb; padding: 0.75rem; border-radius: 12px; }
+        }
       `}</style>
     </div>
   );

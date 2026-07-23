@@ -1101,6 +1101,39 @@ export default function InvoiceDocumentView({ doc, onBack, onUpdateDoc, onDelete
         }
         .qr-card-label.bold-ig { color: #0f172a; }
 
+        @media screen and (max-width: 900px) {
+          .pdf-control-bar {
+            flex-direction: column;
+            align-items: stretch;
+            gap: 0.75rem;
+          }
+          .pdf-actions-right {
+            flex-wrap: wrap;
+            justify-content: flex-start;
+          }
+          .pdf-sheet-card {
+            padding: 1.25rem 1rem !important;
+            border-radius: 16px;
+            overflow-x: auto;
+          }
+          .invoice-client-meta-grid {
+            grid-template-columns: 1fr !important;
+            gap: 1rem;
+          }
+          .pdf-header-top {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 1rem;
+          }
+          .pdf-footer-bottom {
+            flex-direction: column;
+            gap: 1rem;
+          }
+          .signature-box-card {
+            width: 100%;
+          }
+        }
+
         /* ------------------------------------------------------------- */
         /* PERFECT FULL 1-PAGE A4 & LETTER PRINT MEDIA QUERY */
         /* ------------------------------------------------------------- */

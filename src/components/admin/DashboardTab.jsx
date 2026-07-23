@@ -631,6 +631,38 @@ export default function DashboardTab({ inventory, invoices, expenses, onNavigate
             grid-template-columns: 1fr;
           }
         }
+
+        @media (max-width: 640px) {
+          .simple-hero-header {
+            flex-direction: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            align-items: center;
+          }
+          .simple-hero-title {
+            font-size: 1.4rem;
+          }
+          .simple-metrics-grid {
+            grid-template-columns: 1fr;
+            gap: 0.75rem;
+          }
+          .simple-card {
+            padding: 1rem;
+            border-radius: 16px;
+          }
+          .simple-chart-area {
+            height: 170px;
+            padding-left: 35px;
+            margin-top: 1rem;
+          }
+          .grid-num {
+            left: -32px;
+            font-size: 0.65rem;
+          }
+          .bar-month-text {
+            font-size: 0.68rem;
+          }
+        }
       `}</style>
     </div>
   );

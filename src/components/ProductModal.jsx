@@ -299,11 +299,26 @@ export default function ProductModal({ product, onClose, onAddToCart }) {
         }
 
         @media (max-width: 768px) {
+          .modal-content {
+            border-radius: 20px;
+            max-height: 92vh;
+          }
           .modal-grid {
             grid-template-columns: 1fr;
           }
           .modal-img-box {
-            padding: 1.5rem;
+            padding: 1.25rem;
+          }
+          .modal-info {
+            padding: 1.25rem 1rem;
+          }
+          .modal-buy-row {
+            flex-direction: column;
+            width: 100%;
+          }
+          .modal-qty-picker {
+            width: 100%;
+            justify-content: center;
           }
           .modal-add-btn {
             width: 100%;

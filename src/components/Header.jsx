@@ -551,6 +551,33 @@ export default function Header({
             display: flex;
           }
         }
+
+        @media (max-width: 480px) {
+          .header {
+            padding: 0.6rem 0;
+          }
+          .brand-logo-img {
+            height: 30px;
+            max-width: 130px;
+          }
+          .header-actions {
+            gap: 0.35rem;
+          }
+          .action-btn {
+            width: 32px;
+            height: 32px;
+          }
+          .auth-login-btn {
+            font-size: 0.75rem;
+            padding: 0.35rem 0.65rem;
+          }
+          .user-badge-btn {
+            padding: 0.2rem 0.5rem 0.2rem 0.25rem;
+          }
+          .header-user-name {
+            display: none;
+          }
+        }
       `}</style>
     </header>
   );

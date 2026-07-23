@@ -441,6 +441,24 @@ export default function CartDrawer({ isOpen, onClose, cartItems, onUpdateQuantit
           margin-bottom: 1.8rem;
           line-height: 1.5;
         }
+
+        @media (max-width: 480px) {
+          .cart-drawer {
+            max-width: 100%;
+          }
+          .cart-header {
+            padding: 1.15rem 1rem;
+          }
+          .cart-items-list {
+            padding: 1rem;
+          }
+          .cart-footer {
+            padding: 1.15rem 1rem;
+          }
+          .shipping-bar-box {
+            padding: 0.75rem 1rem;
+          }
+        }
       `}</style>
     </div>
   );

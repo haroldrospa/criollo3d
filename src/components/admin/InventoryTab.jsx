@@ -1057,6 +1057,15 @@ export default function InventoryTab({ inventory, setInventory, onToast }) {
         @media (max-width: 900px) {
           .inventory-kpi-grid { grid-template-columns: repeat(2, 1fr); }
         }
+
+        @media (max-width: 640px) {
+          .inventory-kpi-grid { grid-template-columns: 1fr; gap: 0.75rem; }
+          .inventory-header-row { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
+          .inventory-controls-card { padding: 0.85rem; flex-direction: column; align-items: stretch; gap: 0.75rem; }
+          .search-box-wrapper { min-width: 100%; }
+          .category-pills-row { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 4px; }
+          .status-filter-wrapper { width: 100%; justify-content: space-between; }
+        }
       `}</style>
     </div>
   );

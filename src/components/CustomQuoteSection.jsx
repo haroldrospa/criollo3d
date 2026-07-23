@@ -1038,6 +1038,20 @@ export default function CustomQuoteSection({ onQuoteSubmitted }) {
             position: static;
           }
         }
+
+        @media (max-width: 640px) {
+          .quote-config-card {
+            padding: 1.15rem 1rem;
+            border-radius: 18px;
+          }
+          .quote-summary-sticky {
+            padding: 1.15rem 1rem;
+            border-radius: 18px;
+          }
+          .calc-metrics-grid {
+            grid-template-columns: 1fr;
+          }
+        }
       `}</style>
     </section>
   );
